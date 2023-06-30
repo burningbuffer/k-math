@@ -5,94 +5,94 @@ namespace gym
 
 	vec4::vec4()
 	{
-		v[0] = 0.0f;
-		v[1] = 0.0f;
-		v[2] = 0.0f;
-		v[3] = 0.0f;
+		x = 0.0f;
+		y = 0.0f;
+		z = 0.0f;
+		w = 0.0f;
 		
 	}
 	
 	vec4::vec4(float uX, float uY, float uZ, float uW)
 	{
-		v[0] = uX;
-		v[1] = uY;
-		v[2] = uZ;
-		v[3] = uW;
+		x = uX;
+		y = uY;
+		z = uZ;
+		w = uW;
 	}
 	
 	
 	vec4& vec4::operator=(const vec4& ivec)
 	{
-		v[0] = ivec.v[0];
-		v[1] = ivec.v[1];
-		v[2] = ivec.v[2];
-		v[3] = ivec.v[3];
+		x = ivec.x;
+		y = ivec.y;
+		z = ivec.z;
+		w = ivec.w;
 
 		return *this;
 	}
 
 	void vec4::operator+=(const vec4& ivec)
 	{
-		v[0] += ivec.v[0];
-		v[1] += ivec.v[1];
-		v[2] += ivec.v[2];
-		v[3] += ivec.v[3];
+		x += ivec.x;
+		y += ivec.y;
+		z += ivec.z;
+		w += ivec.w;
 	}
 
 	vec4 vec4::operator+(const vec4& ivec)const
 	{
-		return vec4(v[0] + ivec.v[0], v[1] + ivec.v[1], v[2] + ivec.v[2], v[3] + ivec.v[3]);
+		return vec4(x + ivec.x, y + ivec.y, z + ivec.z, w + ivec.w);
 	}
 
 	void vec4::operator-=(const vec4& ivec)
 	{
-		v[0] -= ivec.v[0];
-		v[1] -= ivec.v[1];
-		v[2] -= ivec.v[2];
-		v[3] -= ivec.v[3];
+		x -= ivec.x;
+		y -= ivec.y;
+		z -= ivec.z;
+		w -= ivec.w;
 	}
 
 	vec4 vec4::operator-(const vec4& ivec)const
 	{
-		return vec4(v[0] - ivec.v[0], v[1] - ivec.v[1], v[2] - ivec.v[2], v[3] - ivec.v[3]);
+		return vec4(x - ivec.x, y - ivec.y, z - ivec.z, w - ivec.w);
 	}
 
 	void vec4::operator*=(const vec4& ivec)
 	{
-		v[0] *= ivec.v[0];
-		v[1] *= ivec.v[1];
-		v[2] *= ivec.v[2];
-		v[3] *= ivec.v[3];
+		x *= ivec.x;
+		y *= ivec.y;
+		z *= ivec.z;
+		w *= ivec.w;
 	}
 
 	vec4 vec4::operator*(const float s)const
 	{
-		return vec4(s * v[0], s * v[1], s * v[2], s * v[3]);
+		return vec4(s * x, s * y, s * z, s * w);
 	}
 
 	vec4 vec4::operator*(const vec4& ivec)
 	{
-		return vec4( v[0] * ivec.v[0], v[1] * ivec.v[1], v[2] * ivec.v[2], v[3] * ivec.v[3]);
+		return vec4( x * ivec.x, y * ivec.y, z * ivec.z, w * ivec.w);
 	}
 	
 	void vec4::operator/=(const vec4& ivec)
 	{
-		v[0] /= ivec.v[0];
-		v[1] /= ivec.v[1];
-		v[2] /= ivec.v[2];
-		v[2] /= ivec.v[3];
+		x /= ivec.x;
+		y /= ivec.y;
+		z /= ivec.z;
+		z /= ivec.w;
 	}
 
 	vec4 vec4::operator/(const vec4& ivec)const
 	{
-		return vec4(v[0] / ivec.v[0], v[1] / ivec.v[1], v[2] / ivec.v[2], v[3] / ivec.v[3]);
+		return vec4(x / ivec.x, y / ivec.y, z / ivec.z, w / ivec.w);
 	}
 
 	vec4 vec4::cross(const vec4& ivec)const
 	{
-		return vec4(v[1] * ivec.v[2] - v[2] * ivec.v[1],
-					v[2] * ivec.v[0] - v[0] * ivec.v[2],
-					v[0] * ivec.v[1] - v[1] * ivec.v[0],
+		return vec4(y * ivec.z - z * ivec.y,
+					z * ivec.x - x * ivec.z,
+					x * ivec.y - y * ivec.x,
 					1);
 	}
 
@@ -103,36 +103,36 @@ namespace gym
 
 	vec4 vec4::operator%(const vec4& ivec)const
 	{
-		return vec4(v[1] * ivec.v[2] - v[2] * ivec.v[1],
-					v[2] * ivec.v[0] - v[0] * ivec.v[2],
-					v[0] * ivec.v[1] - v[1] * ivec.v[0],
+		return vec4(y * ivec.z - z * ivec.y,
+					z * ivec.x - x * ivec.z,
+					x * ivec.y - y * ivec.x,
 					1);
 	}
-
+	
 	vec4 vec4::operator*(const gym::mat4& m) 
 	{
 		vec4 nv;
-		nv.v[0] = v[0] * m.matrixData[0] + v[1] * m.matrixData[1] + v[2] * m.matrixData[2] + v[3] * m.matrixData[3];
-		nv.v[1] = v[0] * m.matrixData[4] + v[1] * m.matrixData[5] + v[2] * m.matrixData[6] + v[3] * m.matrixData[7];
-		nv.v[2] = v[0] * m.matrixData[8] + v[1] * m.matrixData[9] + v[2] * m.matrixData[10] + v[3] * m.matrixData[11];
-		nv.v[3] = v[0] * m.matrixData[12] + v[1] * m.matrixData[13] + v[2] * m.matrixData[14] + v[3] * m.matrixData[15];
+		nv.x = x * m.matrixData[0] + y * m.matrixData[1] + z * m.matrixData[2] + w * m.matrixData[3];
+		nv.y = x * m.matrixData[4] + y * m.matrixData[5] + z * m.matrixData[6] + w * m.matrixData[7];
+		nv.z = x * m.matrixData[8] + y * m.matrixData[9] + z * m.matrixData[10] + w * m.matrixData[11];
+		nv.w = x * m.matrixData[12] + y * m.matrixData[13] + z * m.matrixData[14] + w * m.matrixData[15];
 		return nv;
 	}
 	
 	float vec4::magnitude()
 	{
-		return std::sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+		return std::sqrt(x * x + y * y + z * z);
 	}
 
 	vec4 vec4::normalize()
 	{
-		float mag = std::sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+		float mag = std::sqrt(x * x + y * y + z * z);
 		if (mag > 0.0f)
 		{
 			float oneOverMag = 1.0f / mag;
-			v[0] = v[0] * oneOverMag;
-			v[1] = v[1] * oneOverMag;
-			v[2] = v[2] * oneOverMag;
+			x = x * oneOverMag;
+			y = y * oneOverMag;
+			z = z * oneOverMag;
 
 		}
 		return (*this);
@@ -140,13 +140,13 @@ namespace gym
 
 	vec4 vec4::normalizeQ()
 	{
-		float mag = std::sqrt(v[1] * v[1] + v[2] * v[2] + v[3] * v[3]);
+		float mag = std::sqrt(y * y + z * z + w * w);
 		if (mag > 0.0f)
 		{
 			float oneOverMag = 1.0f / mag;
-			v[0] = v[0] * oneOverMag;
-			v[1] = v[1] * oneOverMag;
-			v[2] = v[2] * oneOverMag;
+			x = x * oneOverMag;
+			y = y * oneOverMag;
+			z = z * oneOverMag;
 
 		}
 		return (*this);
@@ -154,10 +154,10 @@ namespace gym
 
 	void vec4::show()
 	{
-		std::cout << std::setw(10) << std::setprecision(6) << std::fixed << v[0] << " ";
-		std::cout << std::setw(10) << std::setprecision(6) << std::fixed << v[1] << " ";
-		std::cout << std::setw(10) << std::setprecision(6) << std::fixed << v[2] << " ";
-		std::cout << std::setw(10) << std::setprecision(6) << std::fixed << v[3] << " ";
+		std::cout << std::setw(10) << std::setprecision(6) << std::fixed << x << " ";
+		std::cout << std::setw(10) << std::setprecision(6) << std::fixed << y << " ";
+		std::cout << std::setw(10) << std::setprecision(6) << std::fixed << z << " ";
+		std::cout << std::setw(10) << std::setprecision(6) << std::fixed << w << " ";
 		std::cout << std::endl;
 
 	}

@@ -27,10 +27,10 @@ namespace gym
 	quat quat::operator*(const quat& iq)const
 	{
 		vec4 nvec;
-		nvec.v[0] = q.v[0] * iq.q.v[0] - q.v[1] * iq.q.v[1] - q.v[2] * iq.q.v[2] - q.v[3] * iq.q.v[3];
-		nvec.v[1] = q.v[1] * iq.q.v[0] + q.v[0] * iq.q.v[1] + q.v[2] * iq.q.v[3] - q.v[3] * iq.q.v[2];
-		nvec.v[2] = q.v[2] * iq.q.v[0] + q.v[0] * iq.q.v[2] + q.v[3] * iq.q.v[1] - q.v[1] * iq.q.v[3];
-		nvec.v[3] = q.v[3] * iq.q.v[0] + q.v[0] * iq.q.v[3] + q.v[1] * iq.q.v[2] - q.v[2] * iq.q.v[1];
+		nvec.x = q.x * iq.q.x - q.y * iq.q.y - q.z * iq.q.z - q.w * iq.q.w;
+		nvec.y = q.y * iq.q.x + q.x * iq.q.y + q.z * iq.q.w - q.w * iq.q.z;
+		nvec.z = q.z * iq.q.x + q.x * iq.q.z + q.w * iq.q.y - q.y * iq.q.w;
+		nvec.w = q.w * iq.q.x + q.x * iq.q.w + q.y * iq.q.z - q.z * iq.q.y;
 		return quat(nvec);
 	}
 
@@ -52,13 +52,13 @@ namespace gym
 
 	void quat::unitNorm()
 	{
-		auto half = radians(q.v[0]) * 0.5;
+		auto half = radians(q.x) * 0.5;
 		q.normalizeQ();
 
-		q.v[0] = cosf(half);
-		q.v[1] = q.v[1] * sinf(half);
-		q.v[2] = q.v[2] * sinf(half);
-		q.v[3] = q.v[3] * sinf(half);
+		q.x = cosf(half);
+		q.y = q.y * sinf(half);
+		q.z = q.z * sinf(half);
+		q.w = q.w * sinf(half);
 	}
 
 	quat quat::inverse()
@@ -69,7 +69,7 @@ namespace gym
 		abs = 1 / abs;
 		quat conjugateValue = conjugate();
 		vec4 ax = vec4(abs, abs, abs, abs);
-		vec4 az = vec4(conjugateValue.q.v[0], conjugateValue.q.v[1], conjugateValue.q.v[2], conjugateValue.q.v[3]);
+		vec4 az = vec4(conjugateValue.q.x, conjugateValue.q.y, conjugateValue.q.z, conjugateValue.q.w);
 		vec4 at = az * ax;
 		return quat(at);
 
@@ -77,14 +77,14 @@ namespace gym
 
 	quat quat::conjugate()
 	{
-		vec4 aux = vec4(q.v[0], -q.v[1], -q.v[2], -q.v[3]);
+		vec4 aux = vec4(q.x, -q.y, -q.z, -q.w);
 		return quat(aux);
 	}
 
 	float quat::norm()
 	{
-		 float scalar = q.v[0] * q.v[0];
-		 float imaginary = q.v[1] * q.v[1] + q.v[2] * q.v[2] + q.v[3] * q.v[3];
+		 float scalar = q.x * q.x;
+		 float imaginary = q.y * q.y + q.z * q.z + q.w * q.w;
 		 return sqrt(scalar+imaginary);
 	}
 
@@ -93,19 +93,19 @@ namespace gym
 		if (norm() != 0)
 		{
 			float normValue = 1 / norm();
-			q.v[0] = q.v[0] * normValue;
-			q.v[1] = q.v[1] * normValue;
-			q.v[2] = q.v[2] * normValue;
-			q.v[3] = q.v[3] * normValue;
+			q.x = q.x * normValue;
+			q.y = q.y * normValue;
+			q.z = q.z * normValue;
+			q.w = q.w * normValue;
 		}
 	}
 
 	void quat::show()
 	{
-		std::cout << std::setw(10) << std::setprecision(6) << std::fixed << q.v[0] << " ";
-		std::cout << std::setw(10) << std::setprecision(6) << std::fixed << q.v[1] << " ";
-		std::cout << std::setw(10) << std::setprecision(6) << std::fixed << q.v[2] << " ";
-		std::cout << std::setw(10) << std::setprecision(6) << std::fixed << q.v[3] << " ";
+		std::cout << std::setw(10) << std::setprecision(6) << std::fixed << q.x << " ";
+		std::cout << std::setw(10) << std::setprecision(6) << std::fixed << q.y << " ";
+		std::cout << std::setw(10) << std::setprecision(6) << std::fixed << q.z << " ";
+		std::cout << std::setw(10) << std::setprecision(6) << std::fixed << q.w << " ";
 		std::cout << std::endl;
 	}
 }

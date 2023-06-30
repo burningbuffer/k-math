@@ -1,5 +1,5 @@
 #include <iostream>
-#include <GYM.h>
+#include "GYM/GYM.h"
 
 // std::ostream& operator<<(std::ostream& os, const vec4& inputv)
 // {

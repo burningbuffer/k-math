@@ -1,6 +1,8 @@
 #ifndef VEC4_H
 #define VEC4_H
 #include "mat4.h"
+#include <immintrin.h>
+#include <xmmintrin.h>
 #include <iomanip>
 
 
@@ -13,7 +15,19 @@ namespace gym
 	private:
 
 	public:
-		float v[4];
+		
+		union {
+
+			struct{
+				float x;
+				float y;
+				float z;
+				float w;
+			};
+
+			__m128 v;
+
+		};
 
 		vec4();
 		vec4(float uX, float uY, float uZ, float uW);
