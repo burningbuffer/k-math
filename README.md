@@ -1,2 +1,2 @@
 # GYM
-Small math library intended for rotations
+Small SIMD math library intended for rotations
