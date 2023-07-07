@@ -31,6 +31,7 @@ namespace gym
 
 		vec4();
 		vec4(float uX, float uY, float uZ, float uW);
+		vec4(__m128 iv);
 		
 		//~vec4();
 

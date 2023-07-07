@@ -21,7 +21,7 @@ void Quaternions(gym::vec4 iPos, gym::vec4 iAxis, float iAngle)
 
 int main()
 {
-	std::cout << "Test begin " << std::endl;
+	std::cout << "Test begin B" << std::endl;
 
 	gym::vec4 Position{ 5, -5, -5, 0};
 	gym::vec4 Axis{1, 1, 0, 0};
