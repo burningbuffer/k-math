@@ -6,15 +6,13 @@ cmake_minimum_required(VERSION 3.24)
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 #message (STATUS "VERBOSE: " ${CMAKE_VERBOSE_MAKEFILE})
 
-project(libtest)
+if (POLICY CMP0141)
+  cmake_policy(SET CMP0141 NEW)
+  set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
+endif()
 
-add_executable(${PROJECT_NAME} main.cpp "GYM/GYM.h" "GYM/vec4.h" "GYM/vec4.cpp" "GYM/mat4.h" "GYM/mat4.cpp" "GYM/vec3.h" "GYM/vec3.cpp" "GYM/quat.h" "GYM/quat.cpp")
+set(CMAKE_BUILD_TYPE Debug)
 
-# TODO clear
-target_link_directories(libtest PRIVATE ${CMAKE_SOURCE_DIR}/GYM/build)
+project ("mat_library")
 
-target_link_libraries(libtest gym)
-
-#install(TARGETS libtest DESTINATION bin) #make install
-
-message(STATUS "END CMAKE")
+add_subdirectory ("MAT")
