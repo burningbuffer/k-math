@@ -1,6 +1,6 @@
 # MAT
 
-This project begin as a small SIMD math library intended for rotations, and will be following as a SIMD generalist graphics math library.
+This project began as a small SIMD math library intended for rotations, and will evolve into a SIMD generalist graphics math library.
 
 ## SIMD
 
