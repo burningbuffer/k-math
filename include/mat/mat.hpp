@@ -1,27 +1,22 @@
-#ifndef MAT_H
-#define MAT_H
+#ifndef MAT_HPP
+#define MAT_HPP
 
-#include "vec4.h"
-#include "mat4.h"
-#include "vec3.h"
-#include "quat.h"
+#include "vec.hpp"
+#include "utils.hpp"
+//#include "mat4.h"
+//#include "vec3.h"
+//#include "quat.h"
 
 
 namespace mat {
 
 
-    inline float radians(double iAngle)
-	{
-		return (float)(iAngle * M_PI / 180);
-	}
-
-
-    mat4 rotate(float iAngle, mat::vec4& Axis) 
+    /*mat4 rotate(float iAngle, mat::vec4 & Axis) 
 	{
 		const float a =  radians(iAngle);
 		const float c = cos(a);
 		const float s = sin(a);
-		mat::vec4 axis = Axis.normalize();
+		mat::vec4  axis = Axis.normalize();
 		mat::mat4 Rotate;
 		Rotate.matrixData[0] = c + (axis.x * axis.x) * (float(1) - c);
 		Rotate.matrixData[1] = (axis.x * axis.y) * (float(1) - c) - axis.z * s;
@@ -37,7 +32,7 @@ namespace mat {
 		return Rotate;
 	}
 
-	quat rotate(vec4& vec,float iAngle, vec4&  iAxis)
+	quat rotate(vec4 & vec,float iAngle, vec4 &  iAxis)
     {
         quat p(0, vec.x, vec.y, vec.z);
         iAxis = iAxis.normalize();
@@ -47,7 +42,7 @@ namespace mat {
         quat rotateVector = q * p * qInverse;
         rotateVector.show();
         return rotateVector;
-    }
+    }*/
 }
 
 #endif
