@@ -1,14 +1,21 @@
 #include <iostream>
-#include "../include/mat/vec4.hpp"
+#include "../include/kma/vec4.hpp"
 
-namespace mat
+namespace kma
 {
+	//
+	// constructors
+	//
 
 	vec4 ::vec4 () { v = _mm_setzero_ps(); }
 	
-	vec4 ::vec4 (float uX, float uY, float uZ, float uW){ v = _mm_set_ps(uX, uY, uZ, uW);}
+	vec4 ::vec4 (float uX, float uY, float uZ, float uW){ v = _mm_set_ps(uW, uZ, uY, uX);}
 
 	vec4 ::vec4 (__m128 iv){ v = iv;}
+	
+	//
+	// overloaded operators
+	//
 
 	vec4  vec4 ::operator+(const vec4 & ivec) const
 	{
@@ -35,14 +42,6 @@ namespace mat
 		return vec4 (_mm_div_ps(v, ivec.v));
 	}
 
-	vec4  vec4 ::operator%(const vec4 & ivec) const
-	{
-		return vec4 (y * ivec.z - z * ivec.y,
-			z * ivec.x - x * ivec.z,
-			x * ivec.y - y * ivec.x,
-			1);
-	}
-
 	vec4 & vec4 ::operator=(const vec4 & ivec)
 	{
 		x = ivec.x;
@@ -52,60 +51,65 @@ namespace mat
 
 		return *this;
 	}
-
-	float vec4 ::magnitude() const
-	{
-		return std::sqrt(x * x + y * y + z * z);
-	}
-
 	
-	/*vec4  vec4 ::operator*(const mat::mat4& imat) 
+	//
+	// procedural operations
+	//
+
+	vec4 vec4::Add(const vec4& a, const vec4& b) const
 	{
-		__m128 m0 = _mm_load_ps(&imat.matrixData[0]);
-		__m128 m1 = _mm_load_ps(&imat.matrixData[4]);
-		__m128 m2 = _mm_load_ps(&imat.matrixData[8]);
-		__m128 m3 = _mm_load_ps(&imat.matrixData[12]);
-
-		_MM_TRANSPOSE4_PS(m0, m1, m2, m3);
-
-		__m128 x = _mm_shuffle_ps(v, v, _MM_SHUFFLE(0, 0, 0, 0));
-		__m128 y = _mm_shuffle_ps(v, v, _MM_SHUFFLE(1, 1, 1, 1));
-		__m128 z = _mm_shuffle_ps(v, v, _MM_SHUFFLE(2, 2, 2, 2));
-		__m128 w = _mm_shuffle_ps(v, v, _MM_SHUFFLE(3, 3, 3, 3));
-
-		__m128 r0 = _mm_mul_ps(m0, x);
-		__m128 r1 = _mm_mul_ps(m1, y);
-		__m128 r2 = _mm_mul_ps(m2, z);
-		__m128 r3 = _mm_mul_ps(m3, w);
-
-		__m128 r01 = _mm_add_ps(r0, r1);
-		__m128 r23 = _mm_add_ps(r2, r3);
-		__m128 r = _mm_add_ps(r01, r23);
-
-		return vec4 (r);
-	}*/
-
-	vec4  vec4 ::normalize()
-	{
-		float mag = std::sqrt(x * x + y * y + z * z);
-		if (mag > 0.0f)
-		{
-			float oneOverMag = 1.0f / mag;
-			x = x * oneOverMag;
-			y = y * oneOverMag;
-			z = z * oneOverMag;
-
-		}
-		return (*this);
+		return vec4(_mm_add_ps(a.v, b.v));
 	}
 
-	void vec4 ::show()
+	vec4 vec4::Sub(const vec4& a, const vec4& b) const
 	{
-		std::cout << std::setw(10) << std::setprecision(6) << std::fixed << x << " ";
-		std::cout << std::setw(10) << std::setprecision(6) << std::fixed << y << " ";
-		std::cout << std::setw(10) << std::setprecision(6) << std::fixed << z << " ";
-		std::cout << std::setw(10) << std::setprecision(6) << std::fixed << w << " ";
-		std::cout << std::endl;
+		return vec4(_mm_sub_ps(a.v, b.v));
+	}
 
+	vec4 vec4::Mul(const vec4& a, const vec4& b) const
+	{
+		return vec4(_mm_mul_ps(a.v, b.v));
+	}
+
+	vec4 vec4::Mul(const vec4& a, const float s) const
+	{
+		return vec4(_mm_mul_ps(a.v, _mm_set1_ps(s)));
+	}
+
+	vec4 vec4::Div(const vec4& a, const vec4& b) const
+	{
+		return vec4(_mm_div_ps(a.v, b.v));
+	}
+
+	//
+	//
+	//
+
+	vec4  vec4::normalize()
+	{
+		__m128 s = _mm_mul_ps(v, v);
+		__m128 res = _mm_hadd_ps(s, s);
+		__m128 InverseSqrt = _mm_rsqrt_ps(_mm_hadd_ps(res, res));
+		__m128 norm = _mm_mul_ps(v, InverseSqrt);
+		return norm;
+	}
+
+	float dot(vec4 a, vec4 b)
+	{
+		__m128 m = _mm_mul_ps(a.v, b.v);
+		__m128 h1 = _mm_hadd_ps(m, m);
+		__m128 h2 = _mm_hadd_ps(h1, h1);
+		return _mm_cvtss_f32(h2);
+	}
+
+	vec4 cross(vec4 a, vec4 b)
+	{
+		__m128 x = a.v;
+		__m128 y = b.v;
+		__m128 tmp0 = _mm_shuffle_ps(x, x, _MM_SHUFFLE(3, 0, 2, 1));
+		__m128 tmp1 = _mm_shuffle_ps(y, y, _MM_SHUFFLE(3, 1, 0, 2));
+		__m128 tmp2 = _mm_shuffle_ps(x, x, _MM_SHUFFLE(3, 1, 0, 2));
+		__m128 tmp3 = _mm_shuffle_ps(y, y, _MM_SHUFFLE(3, 0, 2, 1));
+		return vec4(_mm_sub_ps(_mm_mul_ps(tmp0, tmp1), _mm_mul_ps(tmp2, tmp3)));
 	}
 }
