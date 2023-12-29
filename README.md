@@ -1,4 +1,4 @@
-# K-MATH
+# k-math
 
 This project began as a small SIMD math library intended for rotations, and will evolve into a SIMD generalist graphics math library.
 
