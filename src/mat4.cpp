@@ -1,20 +1,19 @@
 #include <iostream>
-#include "mat4.h"
+#include "../include/kma/mat4.hpp"
 
 namespace kma
 {
 	mat4::mat4()
 	{
-
 		for (int i = 0; i != 16; i++)
 		{
+			if (i % 5 == 0)
+			{
+				matrixData[i] = 1.0f;
+				continue;
+			}
 			matrixData[i] = 0.0f;
 		}
-
-		matrixData[0] = 1.0f;
-		matrixData[5] = 1.0f;
-		matrixData[10] = 1.0f;
-		matrixData[15] = 1.0f;
 	}
 
 	mat4::mat4(float m0, float m1, float m2, float m3, float m4, float m5, float m6, float m7, float m8, float m9, float m10, float m11, float m12, float m13, float m14, float m15)
@@ -120,29 +119,4 @@ namespace kma
 
 		return nm;
 	}
-
-	// matrix - vector multiplication
-	vec4 mat4::operator*(const vec4& inputv)
-	{
-		vec4 nv;
-		nv.v[0] = matrixData[0] * inputv.v[0] + matrixData[1] * inputv.v[1] + matrixData[2] * inputv.v[2] + matrixData[3] * inputv.v[3];
-		nv.v[1] = matrixData[4] * inputv.v[0] + matrixData[5] * inputv.v[1] + matrixData[6] * inputv.v[2] + matrixData[7] * inputv.v[3];
-		nv.v[2] = matrixData[8] * inputv.v[0] + matrixData[9] * inputv.v[1] + matrixData[10] * inputv.v[2] + matrixData[11] * inputv.v[3];
-		nv.v[3] = matrixData[12] * inputv.v[0] + matrixData[13] * inputv.v[1] + matrixData[14] * inputv.v[2] + matrixData[15] * inputv.v[3];
-
-		return nv;
-	}
-
-
-	void mat4::show()
-	{
-	}
-
-	mat4::~mat4()
-	{
-	}
-
-
-
-
 }

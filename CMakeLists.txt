@@ -17,7 +17,6 @@ message (STATUS "COMPILER FLAGS: " ${CMAKE_CXX_FLAGS})
 
 project ("kmath")
 
-
 add_subdirectory(src)
 
 add_subdirectory(demos)

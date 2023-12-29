@@ -27,7 +27,7 @@ int main()
 	//kma::vec4  SumB = kma::Add(Position, Position);
 	std::cout << "Pos: " << Pos << std::endl;
 
-	kma::vec4  vecA{ 1, 2, 3, 4};
+	kma::vec4  vecA{ 1, 2, 3, 0};
 	kma::vec4  vecB{2, 5, 8, 0};
 
 	std::cout << "vecA: " << vecA << std::endl;
@@ -41,6 +41,10 @@ int main()
 	std::cout << "crossproduct: " << crossproduct << std::endl;
 
 	std::cout << "normalizedvector: " << vecA.normalize() << std::endl;
+
+	kma::mat4 matrixA{};
+	std::cout << "matrixA:" << std::endl;
+	std::cout << matrixA << std::endl;
 
 
 	//Quaternions(kma::vec4  iPos, kma::vec4  iAxis, float iAngle); 

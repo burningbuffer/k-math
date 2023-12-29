@@ -9,7 +9,7 @@ namespace kma
     {
         return (float)(iAngle * KMA_PI / 180);
     }
-
+    
     std::ostream& operator<<(std::ostream& os, const kma::vec4 & ivec)
     {
         std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.x << " ";
@@ -20,5 +20,32 @@ namespace kma
         return os;
     }
 
+    std::ostream& operator<<(std::ostream& os, const kma::mat4& imat)
+    {
+		int c = 0;
+		for (int i = 0; i < 16; i++)
+		{
+			if (c == 4)
+			{
+				std::cout << std::endl;
+				c = 0;
+			}
+
+			std::cout
+				<< std::setw(10)
+				<< std::setprecision(6)
+				<< std::fixed
+				<< imat.matrixData[i] << " ";
+			c++;
+		}
+		std::cout << std::endl;
+        return os;
+    }
+
+
+	void show(mat4 m)
+	{
+		
+	}
 
 }
