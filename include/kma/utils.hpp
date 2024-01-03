@@ -51,4 +51,14 @@ namespace kma
         return os;
     }
 
+    std::ostream& operator<<(std::ostream& os, const kma::quat& iquat)
+    {
+        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << iquat.x << " ";
+        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << iquat.y << " ";
+        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << iquat.z << " ";
+        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << iquat.w << " ";
+        std::cout << std::endl;
+        return os;
+    }
+
 }

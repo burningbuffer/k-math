@@ -56,14 +56,26 @@ void testVec3()
 
 void testQuaternions()
 {
-	//Quaternions(kma::vec4  iPos, kma::vec4  iAxis, float iAngle); 
+	float AngleA = 90.0f;
+	kma::vec4 vecA{1.0f, 2.0f, 3.0f,0.0f};
+	kma::quat quaternionA {AngleA, vecA};
+	std::cout << "quaternionA: " << quaternionA << std::endl;
+	float AngleB = 45.0f;
+	kma::vec4 vecB{4.0f, 5.0f, 6.0f, 0.0f};
+	kma::quat quaternionB {AngleB, vecB};
+	std::cout << "quaternionB: " << quaternionB << std::endl;
+
+	kma::quat mult = quaternionA * quaternionB;
+	std::cout << "quaternion mult: " << mult << std::endl;
+
 }
 
 int main()
 {
 
-	testVec4();
+	//testVec4();
 	//testMat4();
+	testQuaternions();
 	//testVec3();
 	
 	
