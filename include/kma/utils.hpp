@@ -20,6 +20,15 @@ namespace kma
         return os;
     }
 
+    std::ostream& operator<<(std::ostream& os, const kma::vec3& ivec)
+    {
+        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.x << " ";
+        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.y << " ";
+        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.z << " ";
+        std::cout << std::endl;
+        return os;
+    }
+
     std::ostream& operator<<(std::ostream& os, const kma::mat4& imat)
     {
 		int c = 0;
@@ -41,11 +50,5 @@ namespace kma
 		std::cout << std::endl;
         return os;
     }
-
-
-	void show(mat4 m)
-	{
-		
-	}
 
 }

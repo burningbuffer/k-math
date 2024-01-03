@@ -3,9 +3,9 @@
 
 namespace kma
 {
-	//
-	// constructors
-	//
+	///
+	/// constructors
+	///
 
 	vec4 ::vec4 () { v = _mm_setzero_ps(); }
 	
@@ -13,9 +13,9 @@ namespace kma
 
 	vec4 ::vec4 (__m128 iv){ v = iv;}
 	
-	//
-	// overloaded operators
-	//
+	///
+	/// overloaded operators
+	///
 
 	vec4  vec4 ::operator+(const vec4 & ivec) const
 	{
@@ -52,9 +52,9 @@ namespace kma
 		return *this;
 	}
 	
-	//
-	// procedural operations
-	//
+	///
+	/// procedural operations
+	///
 
 	vec4 vec4::Add(const vec4& a, const vec4& b) const
 	{
@@ -81,9 +81,9 @@ namespace kma
 		return vec4(_mm_div_ps(a.v, b.v));
 	}
 
-	//
-	//
-	//
+	///
+	///
+	///
 
 	vec4  vec4::normalize()
 	{

@@ -28,9 +28,9 @@ namespace kma
 
 		};
 
-		//
-		// constructors
-		//
+		///
+		/// constructors
+		///
 
 		vec4();
 
@@ -38,9 +38,9 @@ namespace kma
 
 		vec4(__m128 iv);
 
-		//
-		// overloaded operators
-		//
+		///
+		/// overloaded operators
+		///
 
 		vec4 operator+(const vec4& ivec)	const;
 
@@ -54,9 +54,9 @@ namespace kma
 
 		vec4& operator=(const vec4& ivec);
 
-		//
-		// procedural operations
-		//
+		///
+		/// procedural operations
+		///
 
 		vec4 Add(const vec4& a, const vec4& b) const;
 
@@ -68,17 +68,17 @@ namespace kma
 
 		vec4 Div(const vec4& a, const vec4& b) const;
 
-		//
-		//
-		//
+		///
+		///
+		///
 
 		vec4 normalize();
 
 	};
 	
-	//
-	//
-	//
+	///
+	///
+	///
 
 	float dot(vec4 a, vec4 b);
 

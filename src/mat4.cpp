@@ -3,6 +3,10 @@
 
 namespace kma
 {
+	/// 
+	/// constructors
+	/// 
+	/// default constructor is a identity matrix
 	mat4::mat4()
 	{
 		for (int i = 0; i != 16; i++)
@@ -16,28 +20,36 @@ namespace kma
 		}
 	}
 
-	mat4::mat4(float m0, float m1, float m2, float m3, float m4, float m5, float m6, float m7, float m8, float m9, float m10, float m11, float m12, float m13, float m14, float m15)
+	mat4::mat4(float m11, float m12, float m13, float m14,
+		float m21, float m22, float m23, float m24,
+		float m31, float m32, float m33, float m34,
+		float m41, float m42, float m43, float m44)
+
 	{
-		matrixData[0] = m0;
-		matrixData[1] = m1;
-		matrixData[2] = m2;
-		matrixData[3] = m3;
+		matrixData[0] = m11;
+		matrixData[1] = m12;
+		matrixData[2] = m13;
+		matrixData[3] = m14;
 
-		matrixData[4] = m4;
-		matrixData[5] = m5;
-		matrixData[6] = m6;
-		matrixData[7] = m7;
+		matrixData[4] = m21;
+		matrixData[5] = m22;
+		matrixData[6] = m23;
+		matrixData[7] = m24;
 
-		matrixData[8] = m8;
-		matrixData[9] = m9;
-		matrixData[10] = m10;
-		matrixData[11] = m11;
+		matrixData[8] = m31;
+		matrixData[9] = m32;
+		matrixData[10] = m33;
+		matrixData[11] = m34;
 
-		matrixData[12] = m12;
-		matrixData[13] = m13;
-		matrixData[14] = m14;
-		matrixData[15] = m15;
+		matrixData[12] = m41;
+		matrixData[13] = m42;
+		matrixData[14] = m43;
+		matrixData[15] = m44;
 	}
+
+	/// 
+	/// overloaded operators
+	/// 
 
 	mat4 mat4::operator=(const mat4& value)
 	{

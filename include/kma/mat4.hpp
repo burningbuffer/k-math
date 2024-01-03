@@ -4,17 +4,34 @@
 
 namespace kma
 {
-
 	class mat4
 	{
+
 	public:
 
-		float matrixData[16] = { 0.0 };
+		union
+		{
+			float matrixData[16];
+			__m128 matrixSSE[4];
+		};
+		
 
+		/// 
+		/// constructors
+		/// 
+		
 		mat4();
 
-		mat4(float m0, float m1, float m2, float m3, float m4, float m5, float m6, float m7, float m8, float m9, float m10, float m11, float m12, float m13, float m14, float m15);
+		mat4(
+			float m11, float m12, float m13, float m14, 
+			float m21, float m22, float m23, float m24, 
+			float m31, float m32, float m33, float m34, 
+			float m41, float m42, float m43, float m44);
 
+		/// 
+		/// overloaded operators
+		/// 
+		
 		mat4 operator=(const mat4& value);
 
 		mat4 operator+(const mat4& value);
