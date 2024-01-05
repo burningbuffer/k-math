@@ -54,6 +54,16 @@ void testVec3()
 	std::cout << "vec3 normalized vector: " << vecC.normalize() << std::endl;
 }
 
+void testVec2()
+{
+	kma::vec2  vecC{ 1, 2};
+	std::cout << "vecC: " << vecC << std::endl;
+	kma::vec2  vecD{2, 5};
+	std::cout << "vecD: " << vecD << std::endl;
+
+	std::cout << "vec2 normalized vector: " << vecC.normalize() << std::endl;
+}
+
 void testQuaternions()
 {
 	float AngleA = 90.0f;
@@ -75,8 +85,9 @@ int main()
 
 	//testVec4();
 	//testMat4();
-	testQuaternions();
+	//testQuaternions();
 	//testVec3();
+	testVec2();
 	
 	
 
