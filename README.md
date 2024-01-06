@@ -22,7 +22,7 @@ kma::vec3  vecC{ 4, 5, 6 };
 kma::vec3  vecBC = vecB * vecC;
 
 float dot3product = kma::dot(vecB, vecC);
-kma::vec3 cross3product = kma::cross(vecC, vecD);
+kma::vec3 cross3product = kma::cross(vecB, vecC);
 
 kma::vec4  vecD{ 1, 2, 3, 0 };
 kma::vec4  vecE{ 4, 5, 6, 0 };
