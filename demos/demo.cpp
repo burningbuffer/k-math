@@ -83,10 +83,10 @@ void testQuaternions()
 int main()
 {
 
-	//testVec4();
-	//testMat4();
-	//testQuaternions();
-	//testVec3();
+	testVec4();
+	testMat4();
+	testQuaternions();
+	testVec3();
 	testVec2();
 	
 	

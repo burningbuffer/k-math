@@ -10,7 +10,7 @@ namespace kma
         return (float)(iAngle * KMA_PI / 180);
     }
     
-    std::ostream& operator<<(std::ostream& os, const kma::vec4 & ivec)
+    inline std::ostream& operator<<(std::ostream& os, const kma::vec4 & ivec)
     {
         std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.x << " ";
         std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.y << " ";
@@ -20,7 +20,7 @@ namespace kma
         return os;
     }
 
-    std::ostream& operator<<(std::ostream& os, const kma::vec3& ivec)
+    inline std::ostream& operator<<(std::ostream& os, const kma::vec3& ivec)
     {
         std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.x << " ";
         std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.y << " ";
@@ -29,7 +29,7 @@ namespace kma
         return os;
     }
 
-    std::ostream& operator<<(std::ostream& os, const kma::vec2& ivec)
+    inline std::ostream& operator<<(std::ostream& os, const kma::vec2& ivec)
     {
         std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.x << " ";
         std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.y << " ";
@@ -37,7 +37,7 @@ namespace kma
         return os;
     }
 
-    std::ostream& operator<<(std::ostream& os, const kma::mat4& imat)
+    inline std::ostream& operator<<(std::ostream& os, const kma::mat4& imat)
     {
 		int c = 0;
 		for (int i = 0; i < 16; i++)
@@ -59,7 +59,7 @@ namespace kma
         return os;
     }
 
-    std::ostream& operator<<(std::ostream& os, const kma::quat& iquat)
+    inline std::ostream& operator<<(std::ostream& os, const kma::quat& iquat)
     {
         std::cout << std::setw(10) << std::setprecision(6) << std::fixed << iquat.x << " ";
         std::cout << std::setw(10) << std::setprecision(6) << std::fixed << iquat.y << " ";
