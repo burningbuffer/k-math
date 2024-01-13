@@ -80,18 +80,18 @@ void testQuaternions()
 
 }
 
-int main()
-{
-
-	testVec4();
-	testMat4();
-	testQuaternions();
-	testVec3();
-	testVec2();
-	
-	
-
-	
-
-	return 0;
-}
+//int main()
+//{
+//
+//	testVec4();
+//	testMat4();
+//	testQuaternions();
+//	testVec3();
+//	testVec2();
+//	
+//	
+//
+//	
+//
+//	return 0;
+//}

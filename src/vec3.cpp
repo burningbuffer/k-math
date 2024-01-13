@@ -100,4 +100,37 @@ namespace kma
 			a.z * b.x - a.x * b.z,
 			a.x * b.y - a.y * b.x);
 	}
+
+	vec3 RotateOnX(vec3 v, float Angle)
+	{
+		vec3 rotated
+		{
+			v.x,
+				v.y * cos(Angle) - v.z * sin(Angle),
+				v.y * sin(Angle) + v.z * cos(Angle)
+		};
+		return rotated;
+	}
+
+	vec3 RotateOnY(vec3 v, float Angle)
+	{
+		vec3 rotated
+		{
+			v.x* cos(Angle) - v.z * sin(Angle),
+				v.y,
+				v.x* sin(Angle) + v.z * cos(Angle)
+		};
+		return rotated;
+	}
+
+	vec3 RotateOnZ(vec3 v, float Angle)
+	{
+		vec3 rotated
+		{
+			v.x* cos(Angle) - v.y * sin(Angle),
+				v.x* sin(Angle) + v.y * cos(Angle),
+				v.z
+		};
+		return rotated;
+	}
 }

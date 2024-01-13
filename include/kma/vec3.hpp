@@ -57,8 +57,15 @@ namespace kma
 		///
 		///
 		///
+		
 
 		vec3 normalize();
+
+		///
+		///
+		/// 
+		 
+
 	};
 
 	///
@@ -68,5 +75,11 @@ namespace kma
 	float dot(vec3 a, vec3 b);
 
 	vec3 cross(vec3 a, vec3 b);
+
+	vec3 RotateOnX(vec3 v, float Angle);
+
+	vec3 RotateOnY(vec3 v, float Angle);
+
+	vec3 RotateOnZ(vec3 v, float Angle);
 
 }
