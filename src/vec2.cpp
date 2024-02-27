@@ -87,4 +87,10 @@ namespace kma
 	///
 	///
 	
+	float vec2::length()
+	{
+		return std::sqrt(x * x + y * y);
+	}
+	
+	
 }

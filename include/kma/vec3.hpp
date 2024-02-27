@@ -64,7 +64,8 @@ namespace kma
 		///
 		///
 		/// 
-		 
+		
+		float length();
 
 	};
 

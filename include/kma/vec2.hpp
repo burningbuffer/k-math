@@ -57,6 +57,8 @@ namespace kma
 		///
 
 		vec2 normalize();
+
+		float length();
 	};
 
 	///

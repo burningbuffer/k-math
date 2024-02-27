@@ -89,6 +89,11 @@ namespace kma
 	///
 	///
 	
+	float vec3::length()
+	{
+		return sqrt(x * x + y * y + z * z);
+	}
+
 	float dot(vec3 a, vec3 b)
 	{
 		return a.x * b.x + a.y * b.y + a.z * b.z;

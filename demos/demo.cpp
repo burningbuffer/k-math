@@ -80,18 +80,55 @@ void testQuaternions()
 
 }
 
-//int main()
-//{
+void generalTest()
+{
+	std::cout << "test" << std::endl;
+
+	kma::vec3 Normal = {0.0f,1.0f,0.0f};
+	kma::vec3 lightDir = { 1.0f,-1.0f,0.0f };
+
+	//std::cout << kma::dot(Normal, lightDir) << std::endl;
+
+	kma::vec3 a{ 2.5,6.4,3.0 };
+	// length 7.49733
+	// normalize (0.333452, 0.853637, 0.400142)
+	kma::vec3 b{ -4.5,2.4,-2.0 };
+	// length 5.47814
+	// normalize (-0.821447, 0.438105, -0.365088)
+
+	kma::vec3 c{ 1.0, 2.0, 3.0 };
+	kma::vec3 d{ 6.0, 7.0, 8.0 };
+
+	float dotp = kma::dot(c, d);
+
+	std::cout << "Before normalize" << std::endl;
+	std::cout << dotp << std::endl;
+
+	kma::vec3 aN = c.normalize();
+	kma::vec3 bN = d.normalize();
+
+	dotp = kma::dot(c, d);
+
+	std::cout << "After normalize" << std::endl;
+	std::cout << dotp << std::endl;
+
+	//std::cout << a.length() << std::endl;
+	//std::cout << b.length() << std::endl;
+
+}
+
+int main()
+{
 //
 //	testVec4();
 //	testMat4();
 //	testQuaternions();
 //	testVec3();
 //	testVec2();
-//	
-//	
-//
+	generalTest();
 //	
 //
-//	return 0;
-//}
+//	
+//
+	return 0;
+ }
