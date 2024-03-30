@@ -5,7 +5,7 @@
 #include "vec2.hpp"
 #include "mat4.hpp"
 #include "quat.hpp"
-#include "kma_common.hpp"
+#include "kma_vec_common.hpp"
 #include "utils.hpp"
 
 

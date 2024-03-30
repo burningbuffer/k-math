@@ -52,6 +52,9 @@ void testVec3()
 	std::cout << "vec3 cross product: " << cross3product << std::endl;
 
 	std::cout << "vec3 normalized vector: " << vecC.normalize() << std::endl;
+
+	std::cout << "vec3 normalized vector: " << vecC << std::endl;
+
 }
 
 void testVec2()
@@ -123,9 +126,9 @@ int main()
 //	testVec4();
 //	testMat4();
 //	testQuaternions();
-//	testVec3();
+	testVec3();
 //	testVec2();
-	generalTest();
+	//generalTest();
 //	
 //
 //	
