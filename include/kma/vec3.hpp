@@ -1,70 +1,150 @@
 #pragma once
+#include "kma_vec_common.hpp"
 
 namespace kma
 {
 	struct vec3
 	{
-
-		struct 
+		
+		KMA_INLINE vec3()
 		{
-			float x;
-			float y;
-			float z;
-		};
-		
-		vec3() :x(0.0), y(0.0), z(0.0) {};
+			v = setzero_ps();
+		}
 
-		vec3(float uX, float uY, float uZ) :x(uX), y(uY), z(uZ) {};
+		KMA_INLINE vec3(float uX, float uY, float uZ)
+		{
+			v = set_ps(0, uZ, uY, uX);
+		}
 
-		vec3 operator+(const vec3& ivec)	const {return vec3(x + ivec.x, y + ivec.y, z + ivec.z);}
-		vec3 operator-(const vec3& ivec)	const {return vec3(x - ivec.x, y - ivec.y, z - ivec.z);}
-		vec3 operator*(const vec3& ivec)    const {return vec3(x * ivec.x, y * ivec.y, z * ivec.z);}
-		vec3 operator*(const float s)		const {return vec3(s * x, s * y, s * z);}
-		vec3 operator/(const vec3& ivec)	const {return vec3(x / ivec.x, y / ivec.y, z / ivec.z);}
-		vec3& operator=(const vec3& ivec) {
-			x = ivec.x;
-			y = ivec.y;
-			z = ivec.z;
+		KMA_INLINE vec3(__m128 iv)
+		{
+			v = iv;
+		}
 
+		KMA_INLINE float x() const
+		{
+			return _mm_cvtss_f32(v);
+		}
+
+		KMA_INLINE float y() const
+		{
+			return _mm_cvtss_f32(_mm_shuffle_ps(v, v, _MM_SHUFFLE(1, 1, 1, 1)));
+		}
+
+		KMA_INLINE float z() const
+		{
+			return _mm_cvtss_f32(_mm_shuffle_ps(v, v, _MM_SHUFFLE(2, 2, 2, 2)));
+		}
+
+		KMA_INLINE void setX(float x)
+		{
+			v = _mm_insert_ps(v, _mm_set_ss(x), 0x00);
+		}
+
+		KMA_INLINE void setY(float y)
+		{
+			v = _mm_insert_ps(v, _mm_set_ss(y), 0x10);
+		}
+
+		KMA_INLINE void setZ(float z)
+		{
+			v = _mm_insert_ps(v, _mm_set_ss(z), 0x20);
+		}
+
+		KMA_INLINE vec3 operator+(const vec3& ivec)	const
+		{
+			return vec3(add_ps(v, ivec.v));
+		}
+
+		KMA_INLINE vec3 operator-(const vec3& ivec)	const
+		{
+			return vec3(sub_ps(v, ivec.v));
+		}
+
+		KMA_INLINE vec3 operator*(const vec3& ivec) const
+		{
+			return vec3(mul_ps(v, ivec.v));
+		}
+
+		KMA_INLINE vec3 operator*(const float s) const
+		{
+			return vec3(mul_ps(v, set1_ps(s)));
+		}
+
+		KMA_INLINE vec3 operator/(const vec3& ivec)	const
+		{
+			return vec3(div_ps(v, ivec.v));
+		}
+
+		KMA_INLINE vec3& operator=(const vec3& ivec)
+		{
+			v = ivec.v;
 			return *this;
 		}
 
-		vec3 Add(const vec3& a, const vec3& b) const {return vec3(a.x + b.x, a.y + b.y, a.z + b.z);}
-		vec3 Sub(const vec3& a, const vec3& b) const {return vec3(a.x - b.x, a.y - b.y, a.z - b.z);}
-		vec3 Mul(const vec3& a, const vec3& b) const {return vec3(a.x * b.x, a.y * b.y, a.z * b.z);}
-		vec3 Mul(const vec3& a, const float s) const {return vec3(a.x * s, a.y * s, a.z * s);}
-		vec3 Div(const vec3& a, const vec3& b) const {return vec3(a.x / b.x, a.y / b.y, a.z / b.z);}
-
-		vec3 normalize() {
-			float mag = std::sqrt(x * x + y * y + z * z);
-			if (mag > 0.0f)
-			{
-				x = x * 1.0f / mag;
-				y = y * 1.0f / mag;
-				z = z * 1.0f / mag;
-			}
-			return *this;
+		KMA_INLINE vec3 Add(const vec3& a, const vec3& b) const
+		{
+			return vec3(add_ps(a.v, b.v));
 		}
-		
-		float length() {return sqrt(x * x + y * y + z * z);}
+
+		KMA_INLINE vec3 Sub(const vec3& a, const vec3& b) const
+		{
+			return vec3(sub_ps(a.v, b.v));
+		}
+
+		KMA_INLINE vec3 Mul(const vec3& a, const vec3& b) const
+		{
+			return vec3(mul_ps(a.v, b.v));
+		}
+
+		KMA_INLINE vec3 Mul(const vec3& a, const float s) const
+		{
+			return vec3(mul_ps(a.v, _mm_set1_ps(s)));
+		}
+
+		KMA_INLINE vec3 Div(const vec3& a, const vec3& b) const
+		{
+			return vec3(div_ps(a.v, b.v));
+		}
+
+		vec3 normalize()
+		{
+			m128 s = mul_ps(v, v);
+			m128 res = hadd_ps(s, s);
+			m128 InverseSqrt = rsqrt_ps(hadd_ps(res, res));
+			m128 norm = mul_ps(v, InverseSqrt);
+			return norm;
+		}
+
+		m128 v;
 
 	};
 
-	float dot(vec3 a, vec3 b) {return a.x * b.x + a.y * b.y + a.z * b.z;}
+	float dot(vec3 a, vec3 b) 
+	{
+		m128 m = mul_ps(a.v, b.v);
+		m128 h1 = hadd_ps(m, m);
+		m128 h2 = hadd_ps(h1, h1);
+		return cvtss_f32(h2);
+	}
 
 	vec3 cross(vec3 a, vec3 b) {
-		return vec3(a.y * b.z - a.z * b.y,
-					a.z * b.x - a.x * b.z,
-					a.x * b.y - a.y * b.x);
+		m128 x = a.v;
+		m128 y = b.v;
+		m128 tmp0 = shuffle_ps(x, x, _MM_SHUFFLE(3, 0, 2, 1));
+		m128 tmp1 = shuffle_ps(y, y, _MM_SHUFFLE(3, 1, 0, 2));
+		m128 tmp2 = shuffle_ps(x, x, _MM_SHUFFLE(3, 1, 0, 2));
+		m128 tmp3 = shuffle_ps(y, y, _MM_SHUFFLE(3, 0, 2, 1));
+		return vec3(sub_ps(mul_ps(tmp0, tmp1), mul_ps(tmp2, tmp3)));
 	}
 
 	/// temporary ///
 	vec3 RotateOnX(vec3 v, float Angle) {
 		vec3 rotated
 		{
-			v.x,
-				v.y * cos(Angle) - v.z * sin(Angle),
-				v.y * sin(Angle) + v.z * cos(Angle)
+			v.x(),
+				v.y() * cos(Angle) - v.z() * sin(Angle),
+				v.y() * sin(Angle) + v.z() * cos(Angle)
 		};
 		return rotated;
 	}
@@ -72,9 +152,9 @@ namespace kma
 	vec3 RotateOnY(vec3 v, float Angle) {
 		vec3 rotated
 		{
-			v.x * cos(Angle) - v.z * sin(Angle),
-				v.y,
-				v.x * sin(Angle) + v.z * cos(Angle)
+			v.x() * cos(Angle) - v.z() * sin(Angle),
+				v.y(),
+				v.x() * sin(Angle) + v.z() * cos(Angle)
 		};
 		return rotated;
 	}
@@ -83,9 +163,9 @@ namespace kma
 	{
 		vec3 rotated
 		{
-			v.x * cos(Angle) - v.y * sin(Angle),
-				v.x * sin(Angle) + v.y * cos(Angle),
-				v.z
+			v.x() * cos(Angle) - v.y() * sin(Angle),
+				v.x() * sin(Angle) + v.y() * cos(Angle),
+				v.z()
 		};
 		return rotated;
 	}

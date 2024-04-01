@@ -13,31 +13,37 @@
 //	kma::quat quaternion = kma::rotate(Position, Angle, Axis);
 //}
 
-
 void testVec4()
 {
 	kma::vec4  vecA{ 1, 2, 3, 0};
 	std::cout << "vecA: " << vecA << std::endl;
-	kma::vec4  vecB{2, 5, 8, 0};
+	kma::vec4  vecB{2.04567f, 5, 8, 0};
 	std::cout << "vecB: " << vecB << std::endl;
 	
+	vecB.setX(9);
+	vecB.setY(8);
+	vecB.setZ(7);
+	vecB.setW(6);
 
-	float dotproduct = kma::dot(vecA, vecB);
+	std::cout << "vecB: " << vecB << std::endl;
+
+
+	/*float dotproduct = kma::dot(vecA, vecB);
 	std::cout << "vec4 dot product: " << dotproduct << std::endl;
 
 	kma::vec4 crossproduct = kma::cross(vecA, vecB);
 	std::cout << "vec4 cross product: " << crossproduct << std::endl;
 
-	std::cout << "vec4 normalized vector: " << vecA.normalize() << std::endl;
+	std::cout << "vec4 normalized vector: " << vecA.normalize() << std::endl;*/
 }
 
-void testMat4()
-{
-	kma::mat4 matrixA{};
-	std::cout << "matrixA:" << std::endl;
-	std::cout << matrixA << std::endl;
-}
-
+//void testMat4()
+//{
+//	kma::mat4 matrixA{};
+//	std::cout << "matrixA:" << std::endl;
+//	std::cout << matrixA << std::endl;
+//}
+//
 void testVec3()
 {
 	kma::vec3  vecC{ 1, 2, 3};
@@ -56,17 +62,17 @@ void testVec3()
 	std::cout << "vec3 normalized vector: " << vecC << std::endl;
 
 }
-
-void testVec2()
-{
-	kma::vec2  vecC{ 1, 2};
-	std::cout << "vecC: " << vecC << std::endl;
-	kma::vec2  vecD{2, 5};
-	std::cout << "vecD: " << vecD << std::endl;
-
-	std::cout << "vec2 normalized vector: " << vecC.normalize() << std::endl;
-}
-
+//
+//void testVec2()
+//{
+//	kma::vec2  vecC{ 1, 2};
+//	std::cout << "vecC: " << vecC << std::endl;
+//	kma::vec2  vecD{2, 5};
+//	std::cout << "vecD: " << vecD << std::endl;
+//
+//	std::cout << "vec2 normalized vector: " << vecC.normalize() << std::endl;
+//}
+//
 void testQuaternions()
 {
 	float AngleA = 90.0f;
@@ -126,7 +132,7 @@ int main()
 //	testVec4();
 //	testMat4();
 //	testQuaternions();
-	testVec3();
+	//testVec3();
 //	testVec2();
 	//generalTest();
 //	

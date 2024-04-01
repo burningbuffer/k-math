@@ -1,5 +1,7 @@
 #pragma once
+#include "kma_vec_common.hpp"
 #include "vec4.hpp"
+
 namespace kma
 {
 	class quat
@@ -7,22 +9,9 @@ namespace kma
 
 	public:
 
-		union
-		{
-			struct
-			{
-				float x;
-				float y;
-				float z;
-				float w;
-			};
-		
-			__m128 q;
-		};
-
 		quat(float uS, vec4& uV)
 		{
-			q = _mm_set_ps(uV.z, uV.y, uV.x, uS);
+			q = _mm_set_ps(uV.z(), uV.y(), uV.x(), uS);
 		}
 
 		quat(__m128 iq)
@@ -40,6 +29,43 @@ namespace kma
 			q = iv.v;
 		}
 
+		KMA_INLINE float x() const
+		{
+			return _mm_cvtss_f32(q);
+		}
+
+		KMA_INLINE float y() const
+		{
+			return _mm_cvtss_f32(_mm_shuffle_ps(q, q, _MM_SHUFFLE(1, 1, 1, 1)));
+		}
+
+		KMA_INLINE float z() const
+		{
+			return _mm_cvtss_f32(_mm_shuffle_ps(q, q, _MM_SHUFFLE(2, 2, 2, 2)));
+		}
+
+		KMA_INLINE float w() const
+		{
+			return _mm_cvtss_f32(_mm_shuffle_ps(q, q, _MM_SHUFFLE(3, 3, 3, 3)));
+		}
+
+		KMA_INLINE void setX(float x)
+		{
+			q = _mm_insert_ps(q, _mm_set_ss(x), 0x00);
+		}
+
+		KMA_INLINE void setY(float y)
+		{
+			q = _mm_insert_ps(q, _mm_set_ss(y), 0x10);
+		}
+		KMA_INLINE void setZ(float z)
+		{
+			q = _mm_insert_ps(q, _mm_set_ss(z), 0x20);
+		}
+		KMA_INLINE void setW(float w)
+		{
+			q = _mm_insert_ps(q, _mm_set_ss(w), 0x30);
+		}
 
 		/// Agner Fog Vector Class Quaternion Multiplication
 		quat operator*(const quat& iq)const
@@ -104,6 +130,7 @@ namespace kma
 			return _mm_mul_ps(q, InverseSqrt);
 		}
 
+		__m128 q;
 
 	};
 
