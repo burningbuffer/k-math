@@ -16,6 +16,8 @@
 #define cvtss_f32 _mm_cvtss_f32
 #define shuffle_ps _mm_shuffle_ps
 #define set1_ps _mm_set1_ps
+#define insert_ps _mm_insert_ps
+#define set_ss _mm_set_ss
 
 namespace kma
 {
