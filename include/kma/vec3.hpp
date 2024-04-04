@@ -16,39 +16,9 @@ namespace kma
 			v = set_ps(0, uZ, uY, uX);
 		}
 
-		KMA_INLINE vec3(__m128 iv)
+		KMA_INLINE vec3(m128 iv)
 		{
 			v = iv;
-		}
-
-		KMA_INLINE float x() const
-		{
-			return cvtss_f32(v);
-		}
-
-		KMA_INLINE float y() const
-		{
-			return cvtss_f32(shuffle_ps(v, v, _MM_SHUFFLE(1, 1, 1, 1)));
-		}
-
-		KMA_INLINE float z() const
-		{
-			return cvtss_f32(shuffle_ps(v, v, _MM_SHUFFLE(2, 2, 2, 2)));
-		}
-
-		KMA_INLINE void setX(float x)
-		{
-			v = insert_ps(v, set_ss(x), 0x00);
-		}
-
-		KMA_INLINE void setY(float y)
-		{
-			v = insert_ps(v, set_ss(y), 0x10);
-		}
-
-		KMA_INLINE void setZ(float z)
-		{
-			v = insert_ps(v, set_ss(z), 0x20);
 		}
 
 		KMA_INLINE vec3 operator+(const vec3& ivec)	const
@@ -99,7 +69,7 @@ namespace kma
 
 		KMA_INLINE vec3 Mul(const vec3& a, const float s) const
 		{
-			return vec3(mul_ps(a.v, _mm_set1_ps(s)));
+			return vec3(mul_ps(a.v, set1_ps(s)));
 		}
 
 		KMA_INLINE vec3 Div(const vec3& a, const vec3& b) const
@@ -116,7 +86,18 @@ namespace kma
 			return norm;
 		}
 
-		m128 v;
+		union
+		{
+			struct
+			{
+				float x;
+				float y;
+				float z;
+				float w;
+			};
+			m128 v;
+		};
+		
 
 	};
 
@@ -142,9 +123,9 @@ namespace kma
 	vec3 RotateOnX(vec3 v, float Angle) {
 		vec3 rotated
 		{
-			v.x(),
-				v.y() * cos(Angle) - v.z() * sin(Angle),
-				v.y() * sin(Angle) + v.z() * cos(Angle)
+			v.x,
+				v.y * cos(Angle) - v.z * sin(Angle),
+				v.y * sin(Angle) + v.z * cos(Angle)
 		};
 		return rotated;
 	}
@@ -152,9 +133,9 @@ namespace kma
 	vec3 RotateOnY(vec3 v, float Angle) {
 		vec3 rotated
 		{
-			v.x() * cos(Angle) - v.z() * sin(Angle),
-				v.y(),
-				v.x() * sin(Angle) + v.z() * cos(Angle)
+			v.x * cos(Angle) - v.z * sin(Angle),
+				v.y,
+				v.x * sin(Angle) + v.z * cos(Angle)
 		};
 		return rotated;
 	}
@@ -163,9 +144,9 @@ namespace kma
 	{
 		vec3 rotated
 		{
-			v.x() * cos(Angle) - v.y() * sin(Angle),
-				v.x() * sin(Angle) + v.y() * cos(Angle),
-				v.z()
+			v.x * cos(Angle) - v.y * sin(Angle),
+				v.x * sin(Angle) + v.y * cos(Angle),
+				v.z
 		};
 		return rotated;
 	}

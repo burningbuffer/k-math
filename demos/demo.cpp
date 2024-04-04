@@ -8,10 +8,10 @@ void testVec4()
 	kma::vec4  vecB{2.04567f, 5, 8, 0};
 	std::cout << "vecB: " << vecB << std::endl;
 	
-	vecB.setX(9);
-	vecB.setY(8);
-	vecB.setZ(7);
-	vecB.setW(6);
+	vecB.x = 9;
+	vecB.y = 8;
+	vecB.z = 7;
+	vecB.w = 6;
 
 	std::cout << "vecB: " << vecB << std::endl;
 
@@ -145,7 +145,7 @@ void generalTest()
 int main()
 {
 //
-//	testVec4();
+	testVec4();
 	testMat4();
 //	testQuaternions();
 	//testVec3();

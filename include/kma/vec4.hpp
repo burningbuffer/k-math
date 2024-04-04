@@ -16,47 +16,9 @@ namespace kma
 			v = set_ps(uW, uZ, uY, uX); 
 		}
 
-		KMA_INLINE vec4(__m128 iv)
+		KMA_INLINE vec4(m128 iv)
 		{ 
 			v = iv; 
-		}
-
-		KMA_INLINE float x() const
-		{
-			return cvtss_f32(v);
-		}
-
-		KMA_INLINE float y() const
-		{
-			return cvtss_f32(shuffle_ps(v, v, _MM_SHUFFLE(1, 1, 1, 1)));
-		}
-
-		KMA_INLINE float z() const
-		{
-			return cvtss_f32(shuffle_ps(v, v, _MM_SHUFFLE(2, 2, 2, 2)));
-		}
-
-		KMA_INLINE float w() const
-		{
-			return cvtss_f32(shuffle_ps(v, v, _MM_SHUFFLE(3, 3, 3, 3)));
-		}
-
-		KMA_INLINE void setX(float x)
-		{
-			v = insert_ps(v, set_ss(x), 0x00);
-		}
-
-		KMA_INLINE void setY(float y)
-		{
-			v = insert_ps(v, set_ss(y), 0x10);
-		}
-		KMA_INLINE void setZ(float z)
-		{
-			v = insert_ps(v, set_ss(z), 0x20);
-		}
-		KMA_INLINE void setW(float w)
-		{
-			v = insert_ps(v, set_ss(w), 0x30);
 		}
 
 		KMA_INLINE vec4 operator+(const vec4& ivec)	const
@@ -139,7 +101,17 @@ namespace kma
 			return norm;
 		}
 
-		m128 v;
+		union
+		{
+			struct
+			{
+				float x;
+				float y;
+				float z;
+				float w;
+			};
+			m128 v;
+		};
 
 	};
 

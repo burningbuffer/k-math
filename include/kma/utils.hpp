@@ -14,27 +14,27 @@ namespace kma
     
     KMA_INLINE std::ostream& operator<<(std::ostream& os, const kma::vec4 & ivec)
     {
-        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.x() << " ";
-        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.y() << " ";
-        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.z() << " ";
-        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.w() << " ";
+        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.x << " ";
+        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.y << " ";
+        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.z << " ";
+        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.w << " ";
         std::cout << std::endl;
         return os;
     }
 
     KMA_INLINE std::ostream& operator<<(std::ostream& os, const kma::vec3& ivec)
     {
-        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.x() << " ";
-        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.y() << " ";
-        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.z() << " ";
+        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.x << " ";
+        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.y << " ";
+        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.z << " ";
         std::cout << std::endl;
         return os;
     }
 
     KMA_INLINE std::ostream& operator<<(std::ostream& os, const kma::vec2& ivec)
     {
-        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.x() << " ";
-        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.y() << " ";
+        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.x << " ";
+        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << ivec.y << " ";
         std::cout << std::endl;
         return os;
     }
@@ -63,10 +63,10 @@ namespace kma
 
     KMA_INLINE std::ostream& operator<<(std::ostream& os, const kma::quat& iquat)
     {
-        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << iquat.x() << " ";
-        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << iquat.y() << " ";
-        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << iquat.z() << " ";
-        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << iquat.w() << " ";
+        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << iquat.x << " ";
+        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << iquat.y << " ";
+        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << iquat.z << " ";
+        std::cout << std::setw(10) << std::setprecision(6) << std::fixed << iquat.w << " ";
         std::cout << std::endl;
         return os;
     }
