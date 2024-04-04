@@ -77,7 +77,7 @@ namespace kma
 			return vec3(div_ps(a.v, b.v));
 		}
 
-		vec3 normalize()
+		KMA_INLINE vec3 normalize()
 		{
 			m128 s = mul_ps(v, v);
 			m128 res = hadd_ps(s, s);
@@ -101,7 +101,7 @@ namespace kma
 
 	};
 
-	float dot(vec3 a, vec3 b) 
+	KMA_INLINE float dot(vec3 a, vec3 b)
 	{
 		m128 m = mul_ps(a.v, b.v);
 		m128 h1 = hadd_ps(m, m);
@@ -109,7 +109,7 @@ namespace kma
 		return cvtss_f32(h2);
 	}
 
-	vec3 cross(vec3 a, vec3 b) {
+	KMA_INLINE vec3 cross(vec3 a, vec3 b) {
 		m128 x = a.v;
 		m128 y = b.v;
 		m128 tmp0 = shuffle_ps(x, x, _MM_SHUFFLE(3, 0, 2, 1));
@@ -120,7 +120,7 @@ namespace kma
 	}
 
 	/// temporary ///
-	vec3 RotateOnX(vec3 v, float Angle) {
+	KMA_INLINE vec3 RotateOnX(vec3 v, float Angle) {
 		vec3 rotated
 		{
 			v.x,
@@ -130,7 +130,7 @@ namespace kma
 		return rotated;
 	}
 
-	vec3 RotateOnY(vec3 v, float Angle) {
+	KMA_INLINE vec3 RotateOnY(vec3 v, float Angle) {
 		vec3 rotated
 		{
 			v.x * cos(Angle) - v.z * sin(Angle),
@@ -140,7 +140,7 @@ namespace kma
 		return rotated;
 	}
 
-	vec3 RotateOnZ(vec3 v, float Angle)
+	KMA_INLINE vec3 RotateOnZ(vec3 v, float Angle)
 	{
 		vec3 rotated
 		{

@@ -52,7 +52,7 @@ namespace kma
 			return *this;
 		}
 
-		vec4 operator*(const mat4& B)
+		KMA_INLINE vec4 operator*(const mat4& B)
 		{
 			m128 vX = shuffle_ps(v, v, _MM_SHUFFLE(0, 0, 0, 0));
 			m128 vY = shuffle_ps(v, v, _MM_SHUFFLE(1, 1, 1, 1));
@@ -92,7 +92,7 @@ namespace kma
 			return vec4(div_ps(a.v, b.v));
 		}
 
-		vec4 normalize()
+		KMA_INLINE vec4 normalize()
 		{
 			m128 s = mul_ps(v, v);
 			m128 res = hadd_ps(s, s);
@@ -115,7 +115,7 @@ namespace kma
 
 	};
 
-	float dot(vec4 a, vec4 b) 
+	KMA_INLINE float dot(vec4 a, vec4 b)
 	{
 		m128 m = mul_ps(a.v, b.v);
 		m128 h1 = hadd_ps(m, m);
@@ -123,7 +123,7 @@ namespace kma
 		return cvtss_f32(h2);
 	}
 
-	vec4 cross(vec4 a, vec4 b) 
+	KMA_INLINE vec4 cross(vec4 a, vec4 b)
 	{
 		m128 x = a.v;
 		m128 y = b.v;
