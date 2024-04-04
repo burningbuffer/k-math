@@ -28,5 +28,6 @@ target_include_directories(kmath_library INTERFACE
     $<INSTALL_INTERFACE:include>
 )
 
-# Add demos subdirectory
+# Add subdirectories
 add_subdirectory(demos)
+add_subdirectory(tests)

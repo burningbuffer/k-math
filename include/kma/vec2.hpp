@@ -23,22 +23,22 @@ namespace kma
 
 		KMA_INLINE float x() const
 		{
-			return _mm_cvtss_f32(v);
+			return cvtss_f32(v);
 		}
 
 		KMA_INLINE float y() const
 		{
-			return _mm_cvtss_f32(_mm_shuffle_ps(v, v, _MM_SHUFFLE(1, 1, 1, 1)));
+			return cvtss_f32(shuffle_ps(v, v, _MM_SHUFFLE(1, 1, 1, 1)));
 		}
 
 		KMA_INLINE void setX(float x)
 		{
-			v = _mm_insert_ps(v, _mm_set_ss(x), 0x00);
+			v = insert_ps(v, set_ss(x), 0x00);
 		}
 
 		KMA_INLINE void setY(float y)
 		{
-			v = _mm_insert_ps(v, _mm_set_ss(y), 0x10);
+			v = insert_ps(v, set_ss(y), 0x10);
 		}
 
 		KMA_INLINE vec2 operator+(const vec2& ivec)	const
@@ -89,7 +89,7 @@ namespace kma
 
 		KMA_INLINE vec2 Mul(const vec2& a, const float s) const
 		{
-			return vec2(mul_ps(a.v, _mm_set1_ps(s)));
+			return vec2(mul_ps(a.v, set1_ps(s)));
 		}
 
 		KMA_INLINE vec2 Div(const vec2& a, const vec2& b) const

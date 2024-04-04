@@ -1,11 +1,11 @@
 #pragma once
+#include "mat4.hpp"
 #include "kma_vec_common.hpp"
 
 namespace kma
 {
 	struct vec4
 	{
-
 		KMA_INLINE vec4()
 		{ 
 			v = setzero_ps(); 
@@ -88,6 +88,21 @@ namespace kma
 		{
 			v = ivec.v;
 			return *this;
+		}
+
+		vec4 operator*(const mat4& B)
+		{
+			m128 vX = shuffle_ps(v, v, _MM_SHUFFLE(0, 0, 0, 0));
+			m128 vY = shuffle_ps(v, v, _MM_SHUFFLE(1, 1, 1, 1));
+			m128 vZ = shuffle_ps(v, v, _MM_SHUFFLE(2, 2, 2, 2));
+			m128 vW = shuffle_ps(v, v, _MM_SHUFFLE(3, 3, 3, 3));
+
+			m128 r = mul_ps(vX, B.m[0]);
+			r = add_ps(r, mul_ps(vY, B.m[1]));
+			r = add_ps(r, mul_ps(vZ, B.m[2]));
+			r = add_ps(r, mul_ps(vW, B.m[3]));
+
+			return vec4(r);
 		}
 
 		KMA_INLINE vec4 Add(const vec4& a, const vec4& b) const

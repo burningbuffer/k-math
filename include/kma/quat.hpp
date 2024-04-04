@@ -9,22 +9,22 @@ namespace kma
 
 	public:
 
-		quat(float uS, vec4& uV)
+		KMA_INLINE quat(float uS, vec4& uV)
 		{
 			q = _mm_set_ps(uV.z(), uV.y(), uV.x(), uS);
 		}
 
-		quat(__m128 iq)
+		KMA_INLINE quat(__m128 iq)
 		{
 			q = iq;
 		}
 
-		quat(const quat& value)
+		KMA_INLINE quat(const quat& value)
 		{
 			q = value.q;
 		}
 
-		quat(vec4 iv)
+		KMA_INLINE quat(vec4 iv)
 		{
 			q = iv.v;
 		}

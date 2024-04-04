@@ -54,7 +54,7 @@ namespace kma
 				<< std::setw(10)
 				<< std::setprecision(6)
 				<< std::fixed
-				<< imat.matrixData[i] << " ";
+				<< imat.matrix[i] << " ";
 			c++;
 		}
 		std::cout << std::endl;

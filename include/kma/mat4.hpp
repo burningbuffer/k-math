@@ -1,147 +1,76 @@
 #pragma once
+#include "kma_vec_common.hpp"
 #include "vec4.hpp"
 #include <cmath>
 
 namespace kma
 {
-	class mat4
+	struct mat4
 	{
 
-	public:
-
-		union
-		{
-			float matrixData[16];
-			__m128 matrixSSE[4];
-		};
-		
-
-		/// 
-		/// constructors
-		/// 
-		
 		mat4()
 		{
-			for (int i = 0; i != 16; i++)
-			{
-				if (i % 5 == 0)
-				{
-					matrixData[i] = 1.0f;
-					continue;
-				}
-				matrixData[i] = 0.0f;
-			}
+			m[0] = { 1.0f,0.0f,0.0f,0.0f };
+			m[1] = { 0.0f,1.0f,0.0f,0.0f };
+			m[2] = { 0.0f,0.0f,1.0f,0.0f };
+			m[3] = { 0.0f,0.0f,0.0f,1.0f };
 		};
 
 		mat4(float m11, float m12, float m13, float m14,
-			float m21, float m22, float m23, float m24,
-			float m31, float m32, float m33, float m34,
-			float m41, float m42, float m43, float m44)
+			 float m21, float m22, float m23, float m24,
+			 float m31, float m32, float m33, float m34,
+			 float m41, float m42, float m43, float m44)
 
 		{
-			matrixData[0] = m11;
-			matrixData[1] = m12;
-			matrixData[2] = m13;
-			matrixData[3] = m14;
+			m[0] = { m11,m12,m13,m14 };
+			m[1] = { m21,m22,m23,m24 };
+			m[2] = { m31,m32,m33,m34 };
+			m[3] = { m41,m42,m43,m44 };
 
-			matrixData[4] = m21;
-			matrixData[5] = m22;
-			matrixData[6] = m23;
-			matrixData[7] = m24;
-
-			matrixData[8] = m31;
-			matrixData[9] = m32;
-			matrixData[10] = m33;
-			matrixData[11] = m34;
-
-			matrixData[12] = m41;
-			matrixData[13] = m42;
-			matrixData[14] = m43;
-			matrixData[15] = m44;
 		}
 
+		mat4 operator=(const mat4& imat) 
+		{
+			mat4 newMatrix;
+
+			newMatrix.m[0] = imat.m[0];
+			newMatrix.m[1] = imat.m[1];
+			newMatrix.m[2] = imat.m[2];
+			newMatrix.m[3] = imat.m[3];
+
+			return newMatrix;
+		}
+
+		m128 mul128matrix(m128& A, const mat4& B)
+		{
+			m128 vX = shuffle_ps(A, A, _MM_SHUFFLE(0, 0, 0, 0));
+			m128 vY = shuffle_ps(A, A, _MM_SHUFFLE(1, 1, 1, 1));
+			m128 vZ = shuffle_ps(A, A, _MM_SHUFFLE(2, 2, 2, 2));
+			m128 vW = shuffle_ps(A, A, _MM_SHUFFLE(3, 3, 3, 3));
+			m128 r = mul_ps(vX, B.m[0]);
+			r = add_ps(r, mul_ps(vY, B.m[1]));
+			r = add_ps(r, mul_ps(vZ, B.m[2]));
+			r = add_ps(r, mul_ps(vW, B.m[3]));
+			return r;
+		}
+
+		mat4 operator*(const mat4& B)
+		{
+			mat4 newMatrix;
+
+			newMatrix.m[0] = mul128matrix(m[0], B);
+			newMatrix.m[1] = mul128matrix(m[1], B);
+			newMatrix.m[2] = mul128matrix(m[2], B);
+			newMatrix.m[3] = mul128matrix(m[3], B);
+
+			return newMatrix;
+		}
+
+		union {
+			float matrix[4][4];
+			m128 m[4];
+		};
 		
-		mat4 operator=(const mat4& value) 
-		{
-			mat4 newMatrix;
-
-			newMatrix.matrixData[0] = value.matrixData[0];
-			newMatrix.matrixData[1] = value.matrixData[1];
-			newMatrix.matrixData[2] = value.matrixData[2];
-			newMatrix.matrixData[3] = value.matrixData[3];
-
-			newMatrix.matrixData[4] = value.matrixData[4];
-			newMatrix.matrixData[5] = value.matrixData[5];
-			newMatrix.matrixData[6] = value.matrixData[6];
-			newMatrix.matrixData[7] = value.matrixData[7];
-
-			newMatrix.matrixData[8] = value.matrixData[8];
-			newMatrix.matrixData[9] = value.matrixData[9];
-			newMatrix.matrixData[10] = value.matrixData[10];
-			newMatrix.matrixData[11] = value.matrixData[11];
-
-			newMatrix.matrixData[12] = value.matrixData[12];
-			newMatrix.matrixData[13] = value.matrixData[13];
-			newMatrix.matrixData[14] = value.matrixData[14];
-			newMatrix.matrixData[15] = value.matrixData[15];
-
-			return newMatrix;
-		}
-
-
-		mat4 operator+(const mat4& value)
-		{
-			mat4 newMatrix;
-
-			newMatrix.matrixData[0] = matrixData[0] + value.matrixData[0];
-			newMatrix.matrixData[1] = matrixData[1] + value.matrixData[1];
-			newMatrix.matrixData[2] = matrixData[2] + value.matrixData[2];
-			newMatrix.matrixData[3] = matrixData[3] + value.matrixData[3];
-
-			newMatrix.matrixData[4] = matrixData[4] + value.matrixData[4];
-			newMatrix.matrixData[5] = matrixData[5] + value.matrixData[5];
-			newMatrix.matrixData[6] = matrixData[6] + value.matrixData[6];
-			newMatrix.matrixData[7] = matrixData[7] + value.matrixData[7];
-
-			newMatrix.matrixData[8] = matrixData[8] + value.matrixData[8];
-			newMatrix.matrixData[9] = matrixData[9] + value.matrixData[9];
-			newMatrix.matrixData[10] = matrixData[10] + value.matrixData[10];
-			newMatrix.matrixData[11] = matrixData[11] + value.matrixData[11];
-
-			newMatrix.matrixData[12] = matrixData[12] + value.matrixData[12];
-			newMatrix.matrixData[13] = matrixData[13] + value.matrixData[13];
-			newMatrix.matrixData[14] = matrixData[14] + value.matrixData[14];
-			newMatrix.matrixData[15] = matrixData[15] + value.matrixData[15];
-
-			return newMatrix;
-		}
-
-		mat4 operator*(const mat4& m)
-		{
-			mat4 nm;
-
-			nm.matrixData[0] = matrixData[0] * m.matrixData[0] + matrixData[1] * m.matrixData[4] + matrixData[2] * m.matrixData[8] + matrixData[3] * m.matrixData[12];
-			nm.matrixData[1] = matrixData[0] * m.matrixData[1] + matrixData[1] * m.matrixData[5] + matrixData[2] * m.matrixData[9] + matrixData[3] * m.matrixData[13];
-			nm.matrixData[2] = matrixData[0] * m.matrixData[2] + matrixData[1] * m.matrixData[6] + matrixData[2] * m.matrixData[10] + matrixData[3] * m.matrixData[14];
-			nm.matrixData[3] = matrixData[0] * m.matrixData[3] + matrixData[1] * m.matrixData[7] + matrixData[2] * m.matrixData[11] + matrixData[3] * m.matrixData[15];
-
-			nm.matrixData[4] = matrixData[4] * m.matrixData[0] + matrixData[5] * m.matrixData[4] + matrixData[6] * m.matrixData[8] + matrixData[7] * m.matrixData[12];
-			nm.matrixData[5] = matrixData[4] * m.matrixData[1] + matrixData[5] * m.matrixData[5] + matrixData[6] * m.matrixData[9] + matrixData[7] * m.matrixData[13];
-			nm.matrixData[6] = matrixData[4] * m.matrixData[2] + matrixData[5] * m.matrixData[6] + matrixData[6] * m.matrixData[10] + matrixData[7] * m.matrixData[14];
-			nm.matrixData[7] = matrixData[4] * m.matrixData[3] + matrixData[5] * m.matrixData[7] + matrixData[6] * m.matrixData[11] + matrixData[7] * m.matrixData[15];
-
-			nm.matrixData[8] = matrixData[8] * m.matrixData[0] + matrixData[9] * m.matrixData[4] + matrixData[10] * m.matrixData[8] + matrixData[11] * m.matrixData[12];
-			nm.matrixData[9] = matrixData[8] * m.matrixData[1] + matrixData[9] * m.matrixData[5] + matrixData[10] * m.matrixData[9] + matrixData[11] * m.matrixData[13];
-			nm.matrixData[10] = matrixData[8] * m.matrixData[2] + matrixData[9] * m.matrixData[6] + matrixData[10] * m.matrixData[10] + matrixData[11] * m.matrixData[14];
-			nm.matrixData[11] = matrixData[8] * m.matrixData[3] + matrixData[9] * m.matrixData[7] + matrixData[10] * m.matrixData[11] + matrixData[11] * m.matrixData[15];
-
-			nm.matrixData[12] = matrixData[12] * m.matrixData[0] + matrixData[13] * m.matrixData[4] + matrixData[14] * m.matrixData[8] + matrixData[15] * m.matrixData[12];
-			nm.matrixData[13] = matrixData[12] * m.matrixData[1] + matrixData[13] * m.matrixData[5] + matrixData[14] * m.matrixData[9] + matrixData[15] * m.matrixData[13];
-			nm.matrixData[14] = matrixData[12] * m.matrixData[2] + matrixData[13] * m.matrixData[6] + matrixData[14] * m.matrixData[10] + matrixData[15] * m.matrixData[14];
-			nm.matrixData[15] = matrixData[12] * m.matrixData[3] + matrixData[13] * m.matrixData[7] + matrixData[14] * m.matrixData[11] + matrixData[15] * m.matrixData[15];
-
-			return nm;
-		}
 
 	};
 }
