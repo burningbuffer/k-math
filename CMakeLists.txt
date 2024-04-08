@@ -10,7 +10,7 @@ project(
 set(CMAKE_CXX_STANDARD 20)
 
 # Compiler flags
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Ox /Gv")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Ox")
 message (STATUS "COMPILER FLAGS: " ${CMAKE_CXX_FLAGS})
 
 # Locate header files

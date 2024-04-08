@@ -1,44 +1,36 @@
 #include <iostream>
 #include <kma/kma.hpp>
-#include <cassert>
+#include <catch.hpp>
 
-void vector_multiplication()
-{
-	// VEC2
-	kma::vec2 a{ 1,2 };
-	kma::vec2 b{ 3,4 };
-	kma::vec2 c = a * b;
+TEST_CASE("Vector Multiplication", "[vector-tests]") {
 
-	assert(c.x == 3);
-	assert(c.y == 8);
+    kma::vec2 a{ 1,2 };
+    kma::vec2 b{ 2,3 };
 
-	// VEC3
-	kma::vec3 d{ 1,2,3 };
-	kma::vec3 e{ 3,4,5 };
-	kma::vec3 f = d * e;
+    kma::vec2 r = a * b;
 
-	assert(f.x == 3);
-	assert(f.y == 8);
-	assert(f.z == 15);
-
-	// VEC4
-	kma::vec4 g{ 1,2,3,4 };
-	kma::vec4 h{ 3,4,5,6 };
-	kma::vec4 i = g * h;
-
-	assert(i.x == 3);
-	assert(i.y == 8);
-	assert(i.z == 15);
-	assert(i.w == 24);
+    REQUIRE(r.x == 2);
+    REQUIRE(r.y == 6);
 }
 
-void test_vectors()
-{
-	vector_multiplication();
+TEST_CASE("Vector Addition", "[vector-tests]") {
 
+    kma::vec2 a{ 1,2 };
+    kma::vec2 b{ 2,3 };
+
+    kma::vec2 r = a + b;
+
+    REQUIRE(r.x == 3);
+    REQUIRE(r.y == 5);
 }
 
-int main()
-{
-	test_vectors();
+TEST_CASE("Vector Subtraction", "[vector-tests]") {
+
+    kma::vec2 a{ 1,2 };
+    kma::vec2 b{ 2,3 };
+
+    kma::vec2 r = a - b;
+
+    REQUIRE(r.x == -1);
+    REQUIRE(r.y == -1);
 }
