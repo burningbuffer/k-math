@@ -1,9 +1,14 @@
 find_package(Catch2 3 REQUIRED)
 
-add_executable(vector_tests "vector_tests.cpp")
+file(GLOB TEST_FILES "vector_tests.cpp" 
+					 "quat_tests.cpp"
+					 "matrix_tests.cpp"
+)
 
-target_compile_features(vector_tests PRIVATE cxx_std_20)
+add_executable(kmath_tests ${TEST_FILES})
 
-target_link_libraries(vector_tests PRIVATE kmath_library)
+target_compile_features(kmath_tests PRIVATE cxx_std_20)
 
-target_link_libraries(vector_tests PRIVATE Catch2::Catch2WithMain)
+target_link_libraries(kmath_tests PRIVATE kmath_library)
+
+target_link_libraries(kmath_tests PRIVATE Catch2::Catch2WithMain)
