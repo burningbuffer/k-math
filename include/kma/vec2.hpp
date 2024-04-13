@@ -1,5 +1,5 @@
 #pragma once
-#include "kma_vec_common.hpp"
+#include "kma_common.hpp"
 
 namespace kma
 {

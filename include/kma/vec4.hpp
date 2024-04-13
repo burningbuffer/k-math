@@ -1,6 +1,6 @@
 #pragma once
 #include "mat4.hpp"
-#include "kma_vec_common.hpp"
+#include "kma_common.hpp"
 
 namespace kma
 {
@@ -94,11 +94,11 @@ namespace kma
 
 		KMA_INLINE vec4 normalize()
 		{
-			m128 s = mul_ps(v, v);
-			m128 res = hadd_ps(s, s);
-			m128 InverseSqrt = rsqrt_ps(hadd_ps(res, res));
-			m128 norm = mul_ps(v, InverseSqrt);
-			return norm;
+			m128 dot = dp_ps(v, v, 0xFF);
+			m128 length = sqrt_ps(dot);
+			m128 invLength = div_ps(set1_ps(1.0f), length);
+			m128 result = mul_ps(v, invLength);
+			return vec4(result);
 		}
 
 		union

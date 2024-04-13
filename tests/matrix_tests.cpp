@@ -1,6 +1,6 @@
-#include <iostream>
 #include <kma/kma.hpp>
 #include <catch.hpp>
+#include <iostream>
 
 TEST_CASE("Mat4 Multiplication", "[matrix-tests]") 
 {
@@ -17,29 +17,32 @@ TEST_CASE("Mat4 Multiplication", "[matrix-tests]")
 
 	kma::mat4 matrixMul = matrixA * matrixB;
 
-    REQUIRE(matrixMul.matrix[0][0] == 14);
-	REQUIRE(matrixMul.matrix[0][1] == 21);
-	REQUIRE(matrixMul.matrix[0][2] == 36);
-	REQUIRE(matrixMul.matrix[0][3] == 26);
+	kma::vec4 vecmul{ 14,21,36,26 };
 
-	REQUIRE(matrixMul.matrix[1][0] == 14);
-	REQUIRE(matrixMul.matrix[1][1] == 21);
-	REQUIRE(matrixMul.matrix[1][2] == 36);
-	REQUIRE(matrixMul.matrix[1][3] == 26);
+    REQUIRE(matrixMul.matrix[0][0] == vecmul.x);
+	REQUIRE(matrixMul.matrix[0][1] == vecmul.y);
+	REQUIRE(matrixMul.matrix[0][2] == vecmul.z);
+	REQUIRE(matrixMul.matrix[0][3] == vecmul.w);
 
-	REQUIRE(matrixMul.matrix[2][0] == 14);
-	REQUIRE(matrixMul.matrix[2][1] == 21);
-	REQUIRE(matrixMul.matrix[2][2] == 36);
-	REQUIRE(matrixMul.matrix[2][3] == 26);
+	REQUIRE(matrixMul.matrix[1][0] == vecmul.x);
+	REQUIRE(matrixMul.matrix[1][1] == vecmul.y);
+	REQUIRE(matrixMul.matrix[1][2] == vecmul.z);
+	REQUIRE(matrixMul.matrix[1][3] == vecmul.w);
 
-	REQUIRE(matrixMul.matrix[3][0] == 14);
-	REQUIRE(matrixMul.matrix[3][1] == 21);
-	REQUIRE(matrixMul.matrix[3][2] == 36);
-	REQUIRE(matrixMul.matrix[3][3] == 26);
+	REQUIRE(matrixMul.matrix[2][0] == vecmul.x);
+	REQUIRE(matrixMul.matrix[2][1] == vecmul.y);
+	REQUIRE(matrixMul.matrix[2][2] == vecmul.z);
+	REQUIRE(matrixMul.matrix[2][3] == vecmul.w);
+
+	REQUIRE(matrixMul.matrix[3][0] == vecmul.x);
+	REQUIRE(matrixMul.matrix[3][1] == vecmul.y);
+	REQUIRE(matrixMul.matrix[3][2] == vecmul.z);
+	REQUIRE(matrixMul.matrix[3][3] == vecmul.w);
 }
 
 TEST_CASE("Vec4 Mat4 Multiplication", "[matrix-tests]") 
 {
+	std::cout << "Vec4 Mat4 Multiplication" << std::endl;
 
 	kma::mat4 matrixA{ 1.0f,2.0f,4.0f,2.0f,
 					   1.0f,2.0f,4.0f,2.0f,
@@ -55,7 +58,11 @@ TEST_CASE("Vec4 Mat4 Multiplication", "[matrix-tests]")
 
 	kma::vec4 vectorAA = vectorA * matrixA;
 
+	std::cout << vectorAA << std::endl;
+
 	kma::vec4 vectorAB = vectorA * matrixB;
+
+	std::cout << vectorAB << std::endl;
 
 
 	REQUIRE(vectorAA.x == 9);

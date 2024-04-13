@@ -1,4 +1,3 @@
-#include <iostream>
 #include <kma/kma.hpp>
 #include <catch.hpp>
 

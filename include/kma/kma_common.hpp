@@ -22,6 +22,7 @@
 #define xor_ps _mm_xor_ps
 #define set_epi32 _mm_set_epi32
 #define castsi128_ps _mm_castsi128_ps
+#define dp_ps _mm_dp_ps
 
 namespace kma
 {

@@ -1,6 +1,7 @@
-#include <iostream>
 #include <kma/kma.hpp>
 #include <catch.hpp>
+#include <iostream>
+#include <iomanip>
 
 TEST_CASE("Vec2 Operations", "[vector-tests]") 
 {
@@ -71,4 +72,55 @@ TEST_CASE("Vec4 Operations", "[vector-tests]")
     REQUIRE(vec4sub.w == -3);
 
    
+}
+
+TEST_CASE("Vec4 Normalize", "[vector-tests]")
+{
+
+    kma::vec4 a{ 1,2,5,0 };
+
+    kma::vec4 b{ 2,9,4,0 };
+
+    kma::vec4 vecAnormalize = a.normalize();
+    kma::vec4 vecBnormalize = b.normalize();
+
+    std::cout << "vec4 a" << std::endl;
+    std::cout << vecAnormalize << std::endl;
+
+    std::cout << "vec4 b" << std::endl;
+    std::cout << vecBnormalize << std::endl;
+
+}
+
+TEST_CASE("Vec3 Normalize", "[vector-tests]")
+{
+
+    kma::vec3 a{ 1,2,5};
+
+    kma::vec3 b{ 2,9,4};
+
+    kma::vec3 vecAnormalize = a.normalize();
+    kma::vec3 vecBnormalize = b.normalize();
+
+    std::cout << "vec3 a" << std::endl;
+    std::cout << vecAnormalize << std::endl;
+
+    std::cout << "vec3 b" << std::endl;
+    std::cout << vecBnormalize << std::endl;
+
+    kma::vec3 ar{ 0.18, 0.36, 0.91 };
+
+    kma::vec3 br{ 0.19, 0.89, 0.39 };
+
+}
+
+TEST_CASE("Radians Tests", "[radians-tests]")
+{
+    std::cout << "Radians Test" << std::endl;
+
+    float Angle90 = 90;
+    float AngleMinus90 = -90;
+
+    std::cout << kma::radians(Angle90) << std::endl;
+    std::cout << kma::radians(AngleMinus90) << std::endl;
 }

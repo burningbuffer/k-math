@@ -2,7 +2,7 @@
 #include <iostream>
 #include <iomanip>
 
-#define KMA_PI    3.141592654f
+#define KMA_PI    3.141592653589793238f
 #define KMA_INLINE __forceinline
 
 namespace kma
@@ -42,22 +42,22 @@ namespace kma
     KMA_INLINE std::ostream& operator<<(std::ostream& os, const kma::mat4& imat)
     {
 		int c = 0;
-		for (int i = 0; i < 16; i++)
-		{
-			if (c == 4)
-			{
-				std::cout << std::endl;
-				c = 0;
-			}
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
 
-			std::cout
-				<< std::setw(10)
-				<< std::setprecision(6)
-				<< std::fixed
-				<< imat.matrix[i] << " ";
-			c++;
-		}
-		std::cout << std::endl;
+
+                std::cout
+                    << std::setw(10)
+                    << std::setprecision(6)
+                    << std::fixed
+                    << imat.matrix[i][j] << " ";
+                c++;
+            }
+
+            std::cout << std::endl;
+        }
         return os;
     }
 

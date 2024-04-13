@@ -159,15 +159,80 @@ void TransformTest()
 	std::cout << vectorA * matrixA << std::endl;
 }
 
+void ScaleTest()
+{
+	std::cout << "Scale Test" << std::endl;
+	kma::vec4 Pos{ 5,5,5,1 };
+	kma::vec4 ScaleFactor{ 1,2,3,0 };
+	kma::mat4 scaleMatrix = kma::scale(ScaleFactor);
+
+	std::cout << "scaleMatrix\n";
+	print_m128(scaleMatrix.m[0]);
+	print_m128(scaleMatrix.m[1]);
+	print_m128(scaleMatrix.m[2]);
+	print_m128(scaleMatrix.m[3]);
+
+	kma::vec4 result = Pos * scaleMatrix;
+
+	std::cout << result << std::endl;
+
+}
+
+void TranslationTest()
+{
+	kma::vec4 Pos{ 5,5,5,1 };
+
+	std::cout << Pos << std::endl;
+
+	kma::vec4 TranslationFactor{ 2,2,2,0 };
+	kma::mat4 translationMatrix = kma::translate(TranslationFactor.x, TranslationFactor.y, TranslationFactor.z);
+
+	std::cout << "scaleMatrix\n";
+	print_m128(translationMatrix.m[0]);
+	print_m128(translationMatrix.m[1]);
+	print_m128(translationMatrix.m[2]);
+	print_m128(translationMatrix.m[3]);
+
+	kma::vec4 result = Pos * translationMatrix;
+
+	std::cout << result << std::endl;
+
+}
+
+void RotationTest()
+{
+	kma::vec4 Pos{ 5,5,5,1 };
+	kma::vec4 Axis{ 1,0,0,0 };
+	float Angle = kma::radians(90.0f);
+
+	std::cout << Pos << std::endl;
+
+	kma::mat4 rotationMatrix = kma::rotate(Angle, Axis);
+
+	std::cout << "rotationMatrix\n";
+	print_m128(rotationMatrix.m[0]);
+	print_m128(rotationMatrix.m[1]);
+	print_m128(rotationMatrix.m[2]);
+	print_m128(rotationMatrix.m[3]);
+
+	kma::vec4 result = Pos * rotationMatrix;
+
+	std::cout << result << std::endl;
+
+}
+
 int main()
 {
 //
 //	testVec4();
-	testMat4();
+//	testMat4();
 //	testQuaternions();
 	//testVec3();
 //	testVec2();
 	//generalTest();
+//	ScaleTest();
+//	TranslationTest();
+	RotationTest();
 //	
 //
 //	
