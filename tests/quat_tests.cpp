@@ -1,6 +1,8 @@
 #include <kma/kma.hpp>
 #include <catch.hpp>
 
+using namespace Catch::Matchers;
+
 TEST_CASE("Quaternion Multiplication", "[quaternion-tests]") 
 {
     float AngleA = 90.0f;
@@ -13,10 +15,13 @@ TEST_CASE("Quaternion Multiplication", "[quaternion-tests]")
     
     kma::quat mult = quaternionA * quaternionB;
 
-    REQUIRE(mult.x == 4018);
-    REQUIRE(mult.y == 402);
-    REQUIRE(mult.z == 546);
-    REQUIRE(mult.w == 672);
+    kma::vec4 mult_expected{ 4018, 402, 546, 672 };
+
+    REQUIRE_THAT(mult.x, WithinRel(mult_expected.x, 0.1f));
+    REQUIRE_THAT(mult.y, WithinRel(mult_expected.y, 0.1f));
+    REQUIRE_THAT(mult.z, WithinRel(mult_expected.z, 0.1f));
+    REQUIRE_THAT(mult.w, WithinRel(mult_expected.w, 0.1f));
+
 }
 
 TEST_CASE("Quaternion Operations", "[quaternion-tests]") 

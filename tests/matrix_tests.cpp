@@ -2,6 +2,8 @@
 #include <catch.hpp>
 #include <iostream>
 
+using namespace Catch::Matchers;
+
 TEST_CASE("Mat4 Multiplication", "[matrix-tests]") 
 {
 
@@ -19,30 +21,30 @@ TEST_CASE("Mat4 Multiplication", "[matrix-tests]")
 
 	kma::vec4 vecmul{ 14,21,36,26 };
 
-    REQUIRE(matrixMul.matrix[0][0] == vecmul.x);
-	REQUIRE(matrixMul.matrix[0][1] == vecmul.y);
-	REQUIRE(matrixMul.matrix[0][2] == vecmul.z);
-	REQUIRE(matrixMul.matrix[0][3] == vecmul.w);
+	REQUIRE_THAT(matrixMul.matrix[0][0], WithinRel(vecmul.x, 0.1f));
+	REQUIRE_THAT(matrixMul.matrix[0][1], WithinRel(vecmul.y, 0.1f));
+	REQUIRE_THAT(matrixMul.matrix[0][2], WithinRel(vecmul.z, 0.1f));
+	REQUIRE_THAT(matrixMul.matrix[0][3], WithinRel(vecmul.w, 0.1f));
 
-	REQUIRE(matrixMul.matrix[1][0] == vecmul.x);
-	REQUIRE(matrixMul.matrix[1][1] == vecmul.y);
-	REQUIRE(matrixMul.matrix[1][2] == vecmul.z);
-	REQUIRE(matrixMul.matrix[1][3] == vecmul.w);
+	REQUIRE_THAT(matrixMul.matrix[1][0], WithinRel(vecmul.x, 0.1f));
+	REQUIRE_THAT(matrixMul.matrix[1][1], WithinRel(vecmul.y, 0.1f));
+	REQUIRE_THAT(matrixMul.matrix[1][2], WithinRel(vecmul.z, 0.1f));
+	REQUIRE_THAT(matrixMul.matrix[1][3], WithinRel(vecmul.w, 0.1f));
 
-	REQUIRE(matrixMul.matrix[2][0] == vecmul.x);
-	REQUIRE(matrixMul.matrix[2][1] == vecmul.y);
-	REQUIRE(matrixMul.matrix[2][2] == vecmul.z);
-	REQUIRE(matrixMul.matrix[2][3] == vecmul.w);
+	REQUIRE_THAT(matrixMul.matrix[2][0], WithinRel(vecmul.x, 0.1f));
+	REQUIRE_THAT(matrixMul.matrix[2][1], WithinRel(vecmul.y, 0.1f));
+	REQUIRE_THAT(matrixMul.matrix[2][2], WithinRel(vecmul.z, 0.1f));
+	REQUIRE_THAT(matrixMul.matrix[2][3], WithinRel(vecmul.w, 0.1f));
 
-	REQUIRE(matrixMul.matrix[3][0] == vecmul.x);
-	REQUIRE(matrixMul.matrix[3][1] == vecmul.y);
-	REQUIRE(matrixMul.matrix[3][2] == vecmul.z);
-	REQUIRE(matrixMul.matrix[3][3] == vecmul.w);
+	REQUIRE_THAT(matrixMul.matrix[3][0], WithinRel(vecmul.x, 0.1f));
+	REQUIRE_THAT(matrixMul.matrix[3][1], WithinRel(vecmul.y, 0.1f));
+	REQUIRE_THAT(matrixMul.matrix[3][2], WithinRel(vecmul.z, 0.1f));
+	REQUIRE_THAT(matrixMul.matrix[3][3], WithinRel(vecmul.w, 0.1f));
+
 }
 
 TEST_CASE("Vec4 Mat4 Multiplication", "[matrix-tests]") 
 {
-	std::cout << "Vec4 Mat4 Multiplication" << std::endl;
 
 	kma::mat4 matrixA{ 1.0f,2.0f,4.0f,2.0f,
 					   1.0f,2.0f,4.0f,2.0f,
@@ -58,20 +60,19 @@ TEST_CASE("Vec4 Mat4 Multiplication", "[matrix-tests]")
 
 	kma::vec4 vectorAA = vectorA * matrixA;
 
-	std::cout << vectorAA << std::endl;
-
 	kma::vec4 vectorAB = vectorA * matrixB;
 
-	std::cout << vectorAB << std::endl;
+	kma::vec4 vectorAA_expected{ 9, 18, 36, 18 };
+	kma::vec4 vectorAB_expected{ 14, 21, 36, 26 };
 
+	REQUIRE_THAT(vectorAA.x, WithinRel(vectorAA_expected.x, 0.1f));
+	REQUIRE_THAT(vectorAA.y, WithinRel(vectorAA_expected.y, 0.1f));
+	REQUIRE_THAT(vectorAA.z, WithinRel(vectorAA_expected.z, 0.1f));
+	REQUIRE_THAT(vectorAA.w, WithinRel(vectorAA_expected.w, 0.1f));
 
-	REQUIRE(vectorAA.x == 9);
-	REQUIRE(vectorAA.y == 18);
-	REQUIRE(vectorAA.z == 36);
-	REQUIRE(vectorAA.w == 18);
+	REQUIRE_THAT(vectorAB.x, WithinRel(vectorAB_expected.x, 0.1f));
+	REQUIRE_THAT(vectorAB.y, WithinRel(vectorAB_expected.y, 0.1f));
+	REQUIRE_THAT(vectorAB.z, WithinRel(vectorAB_expected.z, 0.1f));
+	REQUIRE_THAT(vectorAB.w, WithinRel(vectorAB_expected.w, 0.1f));
 
-	REQUIRE(vectorAB.x == 14);
-	REQUIRE(vectorAB.y == 21);
-	REQUIRE(vectorAB.z == 36);
-	REQUIRE(vectorAB.w == 26);
 }

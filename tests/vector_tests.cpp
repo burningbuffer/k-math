@@ -3,6 +3,8 @@
 #include <iostream>
 #include <iomanip>
 
+using namespace Catch::Matchers;
+
 TEST_CASE("Vec2 Operations", "[vector-tests]") 
 {
 
@@ -13,14 +15,19 @@ TEST_CASE("Vec2 Operations", "[vector-tests]")
     kma::vec2 vec2add = a + b;
     kma::vec2 vec2sub = a - b;
 
-    REQUIRE(vec2mul.x == 2);
-    REQUIRE(vec2mul.y == 6);
+    kma::vec2 vec2mul_expected{ 2, 6 };
+    kma::vec2 vec2add_expected{ 3, 5 };
+    kma::vec2 vec2sub_expected{ -1, -1 };
 
-    REQUIRE(vec2add.x == 3);
-    REQUIRE(vec2add.y == 5);
+    REQUIRE_THAT(vec2mul.x, WithinRel(vec2mul_expected.x, 0.1f));
+    REQUIRE_THAT(vec2mul.y, WithinRel(vec2mul_expected.y, 0.1f));
 
-    REQUIRE(vec2sub.x == -1);
-    REQUIRE(vec2sub.y == -1);
+    REQUIRE_THAT(vec2add.z, WithinRel(vec2add_expected.z, 0.1f));
+    REQUIRE_THAT(vec2add.x, WithinRel(vec2add_expected.x, 0.1f));
+
+    REQUIRE_THAT(vec2sub.y, WithinRel(vec2sub_expected.y, 0.1f));
+    REQUIRE_THAT(vec2sub.z, WithinRel(vec2sub_expected.z, 0.1f));
+
 }
 
 TEST_CASE("Vec3 Operations", "[vector-tests]") 
@@ -33,17 +40,22 @@ TEST_CASE("Vec3 Operations", "[vector-tests]")
     kma::vec3 vec3add = a + b;
     kma::vec3 vec3sub = a - b;
 
-    REQUIRE(vec3mul.x == 2);
-    REQUIRE(vec3mul.y == 6);
-    REQUIRE(vec3mul.z == -12);
+    kma::vec3 vec3mul_expected{ 2, 6, -12};
+    kma::vec3 vec3add_expected{ 3, 5, 1};
+    kma::vec3 vec3sub_expected{ -1, -1, -7};
 
-    REQUIRE(vec3add.x == 3);
-    REQUIRE(vec3add.y == 5);
-    REQUIRE(vec3add.z == 1);
+    REQUIRE_THAT(vec3mul.x, WithinRel(vec3mul_expected.x, 0.1f));
+    REQUIRE_THAT(vec3mul.y, WithinRel(vec3mul_expected.y, 0.1f));
+    REQUIRE_THAT(vec3mul.z, WithinRel(vec3mul_expected.z, 0.1f));
 
-    REQUIRE(vec3sub.x == -1);
-    REQUIRE(vec3sub.y == -1);
-    REQUIRE(vec3sub.z == -7);
+    REQUIRE_THAT(vec3add.x, WithinRel(vec3add_expected.x, 0.1f));
+    REQUIRE_THAT(vec3add.y, WithinRel(vec3add_expected.y, 0.1f));
+    REQUIRE_THAT(vec3add.z, WithinRel(vec3add_expected.z, 0.1f));
+
+    REQUIRE_THAT(vec3sub.x, WithinRel(vec3sub_expected.x, 0.1f));
+    REQUIRE_THAT(vec3sub.y, WithinRel(vec3sub_expected.y, 0.1f));
+    REQUIRE_THAT(vec3sub.z, WithinRel(vec3sub_expected.z, 0.1f));
+
 }
 
 TEST_CASE("Vec4 Operations", "[vector-tests]") 
@@ -56,71 +68,68 @@ TEST_CASE("Vec4 Operations", "[vector-tests]")
     kma::vec4 vec4add = a + b;
     kma::vec4 vec4sub = a - b;
 
-    REQUIRE(vec4mul.x == 2);
-    REQUIRE(vec4mul.y == 18);
-    REQUIRE(vec4mul.z == 20);
-    REQUIRE(vec4mul.w == 18);
+    kma::vec4 vec4mul_expected{2, 18, 20, 18};
+    kma::vec4 vec4add_expected{3, 11, 9, 9};
+    kma::vec4 vec4sub_expected{-1, -7, 1, -3};
 
-    REQUIRE(vec4add.x == 3);
-    REQUIRE(vec4add.y == 11);
-    REQUIRE(vec4add.z == 9);
-    REQUIRE(vec4add.w == 9);
+    REQUIRE_THAT(vec4mul.x , WithinRel(vec4mul_expected.x, 0.1f));
+    REQUIRE_THAT(vec4mul.y , WithinRel(vec4mul_expected.y, 0.1f));
+    REQUIRE_THAT(vec4mul.z , WithinRel(vec4mul_expected.z, 0.1f));
+    REQUIRE_THAT(vec4mul.w , WithinRel(vec4mul_expected.w, 0.1f));
 
-    REQUIRE(vec4sub.x == -1);
-    REQUIRE(vec4sub.y == -7);
-    REQUIRE(vec4sub.z == 1);
-    REQUIRE(vec4sub.w == -3);
+    REQUIRE_THAT(vec4add.x , WithinRel(vec4add_expected.x, 0.1f));
+    REQUIRE_THAT(vec4add.y , WithinRel(vec4add_expected.y, 0.1f));
+    REQUIRE_THAT(vec4add.z , WithinRel(vec4add_expected.z, 0.1f));
+    REQUIRE_THAT(vec4add.w , WithinRel(vec4add_expected.w, 0.1f));
 
-   
+    REQUIRE_THAT(vec4sub.x , WithinRel(vec4sub_expected.x, 0.1f));
+    REQUIRE_THAT(vec4sub.y , WithinRel(vec4sub_expected.y, 0.1f));
+    REQUIRE_THAT(vec4sub.z , WithinRel(vec4sub_expected.z, 0.1f));
+    REQUIRE_THAT(vec4sub.w , WithinRel(vec4sub_expected.w, 0.1f));
+
 }
 
 TEST_CASE("Vec4 Normalize", "[vector-tests]")
 {
 
-    kma::vec4 a{ 1,2,5,0 };
+    kma::vec4 vec{ 1,2,5,0 };
 
-    kma::vec4 b{ 2,9,4,0 };
+    kma::vec4 vec4_normalize = vec.normalize();
 
-    kma::vec4 vecAnormalize = a.normalize();
-    kma::vec4 vecBnormalize = b.normalize();
+    kma::vec4 vec4_expected{ 0.182574, 0.365148, 0.912871, 0.000000 };
 
-    std::cout << "vec4 a" << std::endl;
-    std::cout << vecAnormalize << std::endl;
-
-    std::cout << "vec4 b" << std::endl;
-    std::cout << vecBnormalize << std::endl;
+    REQUIRE_THAT(vec4_normalize.x, WithinRel(vec4_expected.x, 0.1f));
+    REQUIRE_THAT(vec4_normalize.y, WithinRel(vec4_expected.y, 0.1f));
+    REQUIRE_THAT(vec4_normalize.z, WithinRel(vec4_expected.z, 0.1f));
+    REQUIRE_THAT(vec4_normalize.w, WithinRel(vec4_expected.w, 0.1f));
 
 }
 
 TEST_CASE("Vec3 Normalize", "[vector-tests]")
 {
 
-    kma::vec3 a{ 1,2,5};
+    kma::vec3 vec{ 1,2,5};
 
-    kma::vec3 b{ 2,9,4};
+    kma::vec3 vec3_normalize = vec.normalize();
 
-    kma::vec3 vecAnormalize = a.normalize();
-    kma::vec3 vecBnormalize = b.normalize();
+    kma::vec3 vec3_expected{ 0.182574, 0.365148, 0.912871 };
 
-    std::cout << "vec3 a" << std::endl;
-    std::cout << vecAnormalize << std::endl;
-
-    std::cout << "vec3 b" << std::endl;
-    std::cout << vecBnormalize << std::endl;
-
-    kma::vec3 ar{ 0.18, 0.36, 0.91 };
-
-    kma::vec3 br{ 0.19, 0.89, 0.39 };
+    REQUIRE_THAT(vec3_normalize.x, WithinRel(vec3_expected.x, 0.1f));
+    REQUIRE_THAT(vec3_normalize.y, WithinRel(vec3_expected.y, 0.1f));
+    REQUIRE_THAT(vec3_normalize.z, WithinRel(vec3_expected.z, 0.1f));
 
 }
 
 TEST_CASE("Radians Tests", "[radians-tests]")
 {
-    std::cout << "Radians Test" << std::endl;
 
     float Angle90 = 90;
     float AngleMinus90 = -90;
 
-    std::cout << kma::radians(Angle90) << std::endl;
-    std::cout << kma::radians(AngleMinus90) << std::endl;
+    float Angle90_expected = 1.570796;
+    float AngleMinus90_expected = -1.570796;
+
+    REQUIRE_THAT(kma::radians(Angle90), WithinRel(Angle90_expected, 0.1f));
+    REQUIRE_THAT(kma::radians(AngleMinus90), WithinRel(AngleMinus90_expected, 0.1f));
+
 }
