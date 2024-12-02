@@ -178,32 +178,32 @@ void ScaleTest()
 
 }
 
-void TranslationTest()
-{
-	kma::vec4 Pos{ 5,5,5,1 };
-
-	std::cout << Pos << std::endl;
-
-	kma::vec4 TranslationFactor{ 2,2,2,0 };
-	kma::mat4 translationMatrix = kma::translate(TranslationFactor.x, TranslationFactor.y, TranslationFactor.z);
-
-	std::cout << "scaleMatrix\n";
-	print_m128(translationMatrix.m[0]);
-	print_m128(translationMatrix.m[1]);
-	print_m128(translationMatrix.m[2]);
-	print_m128(translationMatrix.m[3]);
-
-	kma::vec4 result = Pos * translationMatrix;
-
-	std::cout << result << std::endl;
-
-}
+//void TranslationTest()
+//{
+//	kma::vec4 Pos{ 5,5,5,1 };
+//
+//	std::cout << Pos << std::endl;
+//
+//	kma::vec4 TranslationFactor{ 2,2,2,0 };
+//	kma::mat4 translationMatrix = kma::translate(TranslationFactor.x, TranslationFactor.y, TranslationFactor.z);
+//
+//	std::cout << "scaleMatrix\n";
+//	print_m128(translationMatrix.m[0]);
+//	print_m128(translationMatrix.m[1]);
+//	print_m128(translationMatrix.m[2]);
+//	print_m128(translationMatrix.m[3]);
+//
+//	kma::vec4 result = Pos * translationMatrix;
+//
+//	std::cout << result << std::endl;
+//
+//}
 
 void RotationTest()
 {
-	kma::vec4 Pos{ 5,5,5,1 };
-	kma::vec4 Axis{ 1,0,0,0 };
-	float Angle = kma::radians(90.0f);
+	kma::vec4 Pos{ 70, 40, 0, 1 };
+	kma::vec4 Axis{ 0,0,1,0 };
+	float Angle = kma::radians(+30.0f);
 
 	std::cout << Pos << std::endl;
 
@@ -217,12 +217,77 @@ void RotationTest()
 
 	kma::vec4 result = Pos * rotationMatrix;
 
+	std::cout << " " << std::endl;
+
 	std::cout << result << std::endl;
 
 }
 
+//kma::mat4 perspective(float fov, float aspectRatio, float znear, float zfar)
+//{
+//
+//	kma::mat4 m
+//	{
+//		aspectRatio * (1 / tan(fov / 2)), 0.0, 0.0, 0.0,
+//		0.0, 1 / tan(fov / 2), 0.0, 0.0,
+//		0.0, 0.0, zfar / (zfar - znear), 1.0,
+//		0.0, 0.0, (-zfar * znear) / (zfar - znear), 0.0
+//	};
+//
+//	std::cout << " Perspective Matrix After" << std::endl;
+//	std::cout << m;
+//
+//	return m;
+//}
+
+// void perspective(float fov, float aspectRatio, float znear, float zfar)
+// {
+
+// 	kma::mat4 m{};
+
+// 	std::cout << " Perspective Matrix Before" << std::endl;
+// 	std::cout << m;
+
+// 	float a = aspectRatio * (1 / tan(fov / 2));
+// 	float b = 1 / tan(fov / 2);
+// 	float c = zfar / (zfar - znear);
+// 	float d = 1.0;
+// 	float e = (-zfar * znear) / (zfar - znear);
+
+// 	m.matrix[0][0] = a;
+// 	m.matrix[1][1] = b;
+// 	m.matrix[2][2] = c;
+
+// 	m.matrix[2][3] = d;
+// 	m.matrix[3][2] = e;
+
+// 	m.matrix[3][3] = 0.0;
+
+// 	std::cout << " Perspective Matrix After" << std::endl;
+// 	std::cout << m;
+
+// }
+
 int main()
 {
+
+
+	// kma::mat4 projectionMatrix{};
+
+
+	// float fov = kma::radians(90.0f);
+	// float aspectRatio = 1200 / 800;
+	// float near = 1.0f;
+	// float far = 100.0f;
+
+	// perspective(fov, aspectRatio, near, far);
+
+
+	RotationTest();
+
+
+
+
 //
 //	testVec4();
 //	testMat4();
@@ -232,7 +297,7 @@ int main()
 	//generalTest();
 //	ScaleTest();
 //	TranslationTest();
-	RotationTest();
+//	RotationTest();
 //	
 //
 //	

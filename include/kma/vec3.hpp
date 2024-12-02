@@ -119,36 +119,4 @@ namespace kma
 		return vec3(sub_ps(mul_ps(tmp0, tmp1), mul_ps(tmp2, tmp3)));
 	}
 
-	/// temporary ///
-	KMA_INLINE vec3 RotateOnX(vec3 v, float Angle) {
-		vec3 rotated
-		{
-			v.x,
-				v.y * cos(Angle) - v.z * sin(Angle),
-				v.y * sin(Angle) + v.z * cos(Angle)
-		};
-		return rotated;
-	}
-
-	KMA_INLINE vec3 RotateOnY(vec3 v, float Angle) {
-		vec3 rotated
-		{
-			v.x * cos(Angle) - v.z * sin(Angle),
-				v.y,
-				v.x * sin(Angle) + v.z * cos(Angle)
-		};
-		return rotated;
-	}
-
-	KMA_INLINE vec3 RotateOnZ(vec3 v, float Angle)
-	{
-		vec3 rotated
-		{
-			v.x * cos(Angle) - v.y * sin(Angle),
-				v.x * sin(Angle) + v.y * cos(Angle),
-				v.z
-		};
-		return rotated;
-	}
-	/// ////
 }
